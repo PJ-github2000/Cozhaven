@@ -1,0 +1,25 @@
+.contact-page { padding-top: var(--header-height); }
+.contact-hero { padding: var(--space-10) 0 var(--space-6); background: var(--soft-cream); text-align: center; }
+.contact-hero h1 { margin-top: var(--space-2); }
+
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+
+.contact-form { max-width: 100%; }
+
+.contact-info__card { background: var(--soft-cream); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-4); }
+.contact-info__item { display: flex; gap: var(--space-2); padding: var(--space-2) 0; border-bottom: 1px solid var(--cream-dark); color: var(--rich-bronze); }
+.contact-info__item:last-child { border-bottom: none; }
+.contact-info__item h4 { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+.contact-info__item p { font-size: 0.85rem; color: var(--charcoal-muted); }
+
+.contact-info__socials { margin-bottom: var(--space-4); }
+.contact-info__socials h4 { font-family: var(--font-accent); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--charcoal-muted); margin-bottom: var(--space-2); }
+.contact-info__social-links { display: flex; gap: var(--space-2); }
+.contact-info__social-links a { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: var(--radius-full); border: 1px solid var(--taupe-light); color: var(--charcoal-muted); transition: all var(--duration-base); }
+.contact-info__social-links a:hover { background: var(--rich-bronze); border-color: var(--rich-bronze); color: white; }
+
+.contact-map { position: relative; height: 200px; border-radius: var(--radius-lg); overflow: hidden; }
+.contact-map__overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(42,38,34,0.4); color: white; gap: var(--space-1); }
+.contact-map__overlay span { font-family: var(--font-accent); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; }
+
+@media (max-width: 767px) { .contact-layout { grid-template-columns: 1fr; } }

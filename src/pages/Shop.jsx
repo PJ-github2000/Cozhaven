@@ -1,0 +1,119 @@
+import { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SlidersHorizontal, Grid3X3, List, X, ChevronDown } from 'lucide-react';
+import PRODUCTS, { CATEGORIES } from '../data/products';
+import ProductCard from '../components/ProductCard';
+import './Shop.css';
+
+export default function Shop() {
+  const [searchParams] = useSearchParams();
+  const initialCat = searchParams.get('cat') || 'all';
+  const [category, setCategory] = useState(initialCat);
+  const [sortBy, setSortBy] = useState('featured');
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [priceRange, setPriceRange] = useState([0, 5000]);
+
+  const filtered = useMemo(() => {
+    let items = [...PRODUCTS];
+    if (category !== 'all') items = items.filter(p => p.category === category);
+    items = items.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    switch (sortBy) {
+      case 'price-asc': items.sort((a, b) => a.price - b.price); break;
+      case 'price-desc': items.sort((a, b) => b.price - a.price); break;
+      case 'rating': items.sort((a, b) => b.rating - a.rating); break;
+      case 'newest': items.sort((a, b) => (b.badge === 'new' ? 1 : 0) - (a.badge === 'new' ? 1 : 0)); break;
+      default: break;
+    }
+    return items;
+  }, [category, sortBy, priceRange]);
+
+  return (
+    <main className="shop-page">
+      {/* Hero Banner */}
+      <section className="shop-hero">
+        <div className="container">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            {category === 'all' ? 'All Furniture' : CATEGORIES.find(c => c.id === category)?.name || 'Shop'}
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+            Showing {filtered.length} pieces
+          </motion.p>
+        </div>
+      </section>
+
+      <div className="container shop-layout">
+        {/* Sidebar Filters */}
+        <aside className={`shop-filters ${filtersOpen ? 'open' : ''}`}>
+          <div className="shop-filters__header">
+            <h3>Filters</h3>
+            <button className="hide-desktop" onClick={() => setFiltersOpen(false)}><X size={20} /></button>
+          </div>
+
+          <div className="filter-group">
+            <h4>Category</h4>
+            <button className={`filter-opt ${category === 'all' ? 'active' : ''}`} onClick={() => setCategory('all')}>All</button>
+            {CATEGORIES.map(cat => (
+              <button key={cat.id} className={`filter-opt ${category === cat.id ? 'active' : ''}`} onClick={() => setCategory(cat.id)}>
+                {cat.name} <span>({cat.count})</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="filter-group">
+            <h4>Price Range</h4>
+            <input
+              type="range"
+              min="0"
+              max="5000"
+              step="100"
+              value={priceRange[1]}
+              onChange={e => setPriceRange([0, Number(e.target.value)])}
+              className="price-slider"
+            />
+            <div className="price-labels">
+              <span>$0</span>
+              <span>${priceRange[1].toLocaleString()}</span>
+            </div>
+          </div>
+        </aside>
+
+        {/* Product Grid */}
+        <div className="shop-main">
+          <div className="shop-toolbar">
+            <button className="shop-filter-toggle hide-desktop" onClick={() => setFiltersOpen(true)}>
+              <SlidersHorizontal size={18} /> Filters
+            </button>
+            <div className="shop-sort">
+              <select value={sortBy} onChange={e => setSortBy(e.target.value)} aria-label="Sort products">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="newest">Newest</option>
+              </select>
+              <ChevronDown size={16} className="sort-icon" />
+            </div>
+          </div>
+
+          <div className="shop-grid">
+            <AnimatePresence mode="wait">
+              {filtered.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {filtered.length === 0 && (
+            <div className="shop-empty">
+              <p>No products match your filters.</p>
+              <button className="btn btn-secondary" onClick={() => { setCategory('all'); setPriceRange([0, 5000]); }}>
+                Clear Filters
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
