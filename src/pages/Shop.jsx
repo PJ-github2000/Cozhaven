@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SlidersHorizontal, Grid3X3, List, X, ChevronDown } from 'lucide-react';
+import { SlidersHorizontal, Grid3X3, List, X, ChevronDown, Star } from 'lucide-react';
 import PRODUCTS, { CATEGORIES } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import './Shop.css';
@@ -13,11 +13,30 @@ export default function Shop() {
   const [sortBy, setSortBy] = useState('featured');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 5000]);
+  
+  // Enhanced filters
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [minRating, setMinRating] = useState(0);
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  // Extract unique colors and sizes from products
+  const allColors = [...new Set(PRODUCTS.flatMap(p => p.colors))];
+  const allSizes = [...new Set(PRODUCTS.flatMap(p => p.sizes))];
 
   const filtered = useMemo(() => {
     let items = [...PRODUCTS];
     if (category !== 'all') items = items.filter(p => p.category === category);
-    items = items.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    if (priceRange) items = items.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    if (selectedColors.length > 0) {
+      items = items.filter(p => selectedColors.some(color => p.colors.includes(color)));
+    }
+    if (selectedSizes.length > 0) {
+      items = items.filter(p => selectedSizes.some(size => p.sizes.includes(size)));
+    }
+    if (minRating > 0) items = items.filter(p => p.rating >= minRating);
+    if (inStockOnly) items = items.filter(p => p.badge !== 'last');
+    
     switch (sortBy) {
       case 'price-asc': items.sort((a, b) => a.price - b.price); break;
       case 'price-desc': items.sort((a, b) => b.price - a.price); break;
@@ -26,7 +45,7 @@ export default function Shop() {
       default: break;
     }
     return items;
-  }, [category, sortBy, priceRange]);
+  }, [category, sortBy, priceRange, selectedColors, selectedSizes, minRating, inStockOnly]);
 
   return (
     <main className="shop-page">
@@ -75,6 +94,91 @@ export default function Shop() {
               <span>$0</span>
               <span>${priceRange[1].toLocaleString()}</span>
             </div>
+          </div>
+
+          {/* Color Filter */}
+          <div className="filter-group">
+            <h4>Color</h4>
+            <div className="color-swatches">
+              {allColors.map(color => (
+                <button
+                  key={color}
+                  className={`color-swatch ${selectedColors.includes(color) ? 'active' : ''}`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => setSelectedColors(prev => 
+                    prev.includes(color) ? prev.filter(c => c !== color) : [...prev, color]
+                  )}
+                  aria-label={`Filter by color ${color}`}
+                />
+              ))}
+            </div>
+            {selectedColors.length > 0 && (
+              <button className="clear-filters" onClick={() => setSelectedColors([])}>Clear Colors</button>
+            )}
+          </div>
+
+          {/* Size Filter */}
+          <div className="filter-group">
+            <h4>Size</h4>
+            <div className="size-options">
+              {allSizes.map(size => (
+                <label key={size} className="size-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={selectedSizes.includes(size)}
+                    onChange={() => setSelectedSizes(prev => 
+                      prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+                    )}
+                  />
+                  <span className="checkmark"></span>
+                  <span className="size-label">{size}</span>
+                </label>
+              ))}
+            </div>
+            {selectedSizes.length > 0 && (
+              <button className="clear-filters" onClick={() => setSelectedSizes([])}>Clear Sizes</button>
+            )}
+          </div>
+
+          {/* Rating Filter */}
+          <div className="filter-group">
+            <h4>Minimum Rating</h4>
+            <div className="rating-options">
+              {[4, 3, 2, 1].map(stars => (
+                <button
+                  key={stars}
+                  className={`rating-option ${minRating === stars ? 'active' : ''}`}
+                  onClick={() => setMinRating(minRating === stars ? 0 : stars)}
+                >
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      size={16} 
+                      fill={i < stars ? '#FFD700' : 'none'} 
+                      stroke={i < stars ? '#FFD700' : 'currentColor'}
+                    />
+                  ))}
+                  <span>& Up</span>
+                </button>
+              ))}
+            </div>
+            {minRating > 0 && (
+              <button className="clear-filters" onClick={() => setMinRating(0)}>Clear Rating</button>
+            )}
+          </div>
+
+          {/* Availability */}
+          <div className="filter-group">
+            <h4>Availability</h4>
+            <label className="availability-toggle">
+              <input
+                type="checkbox"
+                checked={inStockOnly}
+                onChange={() => setInStockOnly(!inStockOnly)}
+              />
+              <span className="toggle-switch"></span>
+              <span>In Stock Only</span>
+            </label>
           </div>
         </aside>
 

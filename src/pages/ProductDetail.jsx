@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, Minus, Plus, ChevronDown, Star, ArrowLeft, Share2, Truck, Shield, RotateCcw } from 'lucide-react';
+import { Heart, Minus, Plus, ChevronDown, Star, ArrowLeft, Share2, Truck, Shield, RotateCcw, Lock, Ruler } from 'lucide-react';
 import PRODUCTS from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useToast } from '../context/ToastContext';
 import ProductCard from '../components/ProductCard';
+import ReviewsSection from '../components/ReviewsSection';
+import TrustBadges from '../components/TrustBadges';
+import SizeGuide from '../components/SizeGuide';
+import UrgencyIndicators from '../components/UrgencyIndicators';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
@@ -17,6 +21,7 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [openAccordion, setOpenAccordion] = useState('description');
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
   const { addItem } = useCart();
   const { toggle, isWished } = useWishlist();
   const { addToast } = useToast();
@@ -71,6 +76,9 @@ export default function ProductDetail() {
             {product.salePercent && <span className="badge badge-sale">Save {product.salePercent}%</span>}
           </div>
 
+          {/* Urgency Indicators */}
+          <UrgencyIndicators product={product} />
+
           {/* Colors */}
           {product.colors && (
             <div className="pdp__option">
@@ -92,6 +100,9 @@ export default function ProductDetail() {
                   <button key={i} className={`pdp__size-btn ${selectedSize === i ? 'active' : ''}`} onClick={() => setSelectedSize(i)}>{s}</button>
                 ))}
               </div>
+              <button className="size-guide-link" onClick={() => setShowSizeGuide(true)}>
+                <Ruler size={14} /> Size Guide
+              </button>
             </div>
           )}
 
@@ -109,11 +120,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Trust Badges */}
-          <div className="pdp__trust">
-            <div><Truck size={18} /> Free shipping over $999</div>
-            <div><Shield size={18} /> 5-year warranty</div>
-            <div><RotateCcw size={18} /> 30-day returns</div>
-          </div>
+          <TrustBadges />
 
           {/* Accordions */}
           <div className="pdp__accordions">
@@ -133,6 +140,9 @@ export default function ProductDetail() {
               </div>
             ))}
           </div>
+
+          {/* Customer Reviews */}
+          <ReviewsSection productId={product.id} />
         </motion.div>
       </div>
 
@@ -147,6 +157,9 @@ export default function ProductDetail() {
           </div>
         </section>
       )}
+
+      {/* Size Guide Modal */}
+      {showSizeGuide && <SizeGuide onClose={() => setShowSizeGuide(false)} />}
     </main>
   );
 }

@@ -6,19 +6,19 @@
 /* ─── Design Tokens ─── */
 :root {
   /* Typography */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-accent: 'Syne', sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-accent: 'Manrope', sans-serif;
 
   /* Colors — Primary */
-  --warm-white: #FFFFFF;     /* Stark white for CB2/West Elm editorial look */
+  --warm-white: #FAFAFA;     /* Off-white to reduce eye strain */
   --deep-charcoal: #1A1A1A;  /* Near black for high contrast */
   --warm-taupe: #B3A89D;
 
   /* Colors — Accent */
   --rich-bronze: #8A6540;    /* Darker, more refined bronze */
   --deep-sage: #6D7D66;
-  --soft-cream: #F7F5F2;     /* Very subtle off-white for sections */
+  --soft-cream: #F8F7F5;     /* Very subtle off-white for sections */
 
   /* Colors — Functional */
   --success: #556B56;
@@ -53,12 +53,12 @@
   --shadow-xl: 0 10px 40px rgba(0, 0, 0, 0.06);
   --shadow-glow: none;
 
-  /* Borders — Sharp architectural edges */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
+  /* Borders — Subtle rounded edges for better UX */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
   --radius-full: 9999px; /* Only for specific circular elements like icons */
 
   /* Transitions */
@@ -159,9 +159,9 @@ body::before {
 /* ─── Typography ─── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   color: var(--deep-charcoal);
 }
 
@@ -599,6 +599,53 @@ textarea.input-field {
   }
 }
 
+/* ─── Accessibility Enhancements ─── */
+
+/* Enhanced Focus Indicators */
+:focus-visible {
+  outline: 2px solid var(--rich-bronze);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--rich-bronze);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.2);
+}
+
+/* WCAG Compliant Touch Targets */
+button,
+.header__action-btn,
+.product-card__wishlist,
+.pdp__color-btn,
+.pdp__size-btn,
+.filter-opt {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --warm-white: #FFFFFF;
+    --deep-charcoal: #000000;
+    --rich-bronze: #8B4513;
+  }
+}
+
 /* ─── Skip to content (Accessibility) ─── */
 .skip-to-content {
   position: absolute;
@@ -615,6 +662,35 @@ textarea.input-field {
 
 .skip-to-content:focus {
   left: var(--space-2);
+}
+
+/* Page Loader (for code splitting) */
+.page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: var(--space-4);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--taupe-light);
+  border-top-color: var(--rich-bronze);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.page-loader p {
+  color: var(--charcoal-muted);
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
 }
 
 /* ─── Overlay ─── */

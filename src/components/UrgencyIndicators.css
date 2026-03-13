@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════
+   URGENCY INDICATORS STYLES
+   ═══════════════════════════════════════════════ */
+
+.urgency-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.urgency-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-accent);
+}
+
+.urgency-low-stock {
+  background: rgba(168, 90, 79, 0.1);
+  color: #A85A4F;
+  border: 1px solid rgba(168, 90, 79, 0.3);
+}
+
+.urgency-viewers {
+  background: rgba(166, 124, 82, 0.1);
+  color: var(--rich-bronze);
+  border: 1px solid rgba(166, 124, 82, 0.3);
+}
+
+.urgency-time {
+  background: rgba(255, 193, 7, 0.1);
+  color: #B8860B;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Pulse animation for urgency */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.urgency-low-stock svg {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .urgency-badge {
+    font-size: 0.8rem;
+    padding: var(--space-1) var(--space-2);
+  }
+}

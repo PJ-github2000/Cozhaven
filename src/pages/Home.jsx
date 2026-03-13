@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'fra
 import { ArrowRight, ArrowDown, Star, ChevronLeft, ChevronRight, MapPin, Clock, Truck, Shield, Heart, Sparkles, Award, Users, Play, Pause, Quote } from 'lucide-react';
 import PRODUCTS, { CATEGORIES, REVIEWS, BLOG_POSTS } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import AnimatedText from '../components/AnimatedText';
 import './Home.css';
 
 export default function Home() {
@@ -28,7 +29,7 @@ function HeroSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   return (
     <section className="hero" ref={ref}>
@@ -36,51 +37,104 @@ function HeroSection() {
         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80" alt="Luxury modern living room" />
         <div className="hero__gradient" />
       </motion.div>
-      {/* Animated decorative elements */}
+      
+      {/* Animated light beams */}
       <div className="hero__beams">
         <div className="hero__beam hero__beam--1" />
         <div className="hero__beam hero__beam--2" />
         <div className="hero__beam hero__beam--3" />
       </div>
+      
       <motion.div className="hero__content container" style={{ opacity }}>
-        <motion.span
-          className="hero__subtitle"
-          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+        <motion.div
+          className="hero__badge"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Premium Canadian-Made Furniture
-        </motion.span>
-        <motion.h1
-          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ delay: 0.5, duration: 0.9 }}
-        >
-          Creating Comfort,<br />Crafting Style
-        </motion.h1>
+          <Sparkles size={16} />
+          <span>Handcrafted in Canada</span>
+        </motion.div>
+        
+        <AnimatedText 
+          el="h1"
+          text={["Elevate Your Space,", "Elevate Your Life"]}
+          once={true}
+        />
+        
         <motion.p
           className="hero__desc"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
         >
-          Premium furniture for modern living — where timeless design meets uncompromising comfort.
+          Discover premium furniture that blends Canadian craftsmanship with contemporary design. 
+          Every piece tells a story of quality, comfort, and conscious creation.
         </motion.p>
+        
+        <motion.div
+          className="hero__stats"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.8 }}
+        >
+          <div className="hero__stat">
+            <strong>15+</strong>
+            <span>Years Experience</span>
+          </div>
+          <div className="hero__stat-divider" />
+          <div className="hero__stat">
+            <strong>10K+</strong>
+            <span>Happy Customers</span>
+          </div>
+          <div className="hero__stat-divider" />
+          <div className="hero__stat">
+            <strong>100%</strong>
+            <span>Canadian Made</span>
+          </div>
+        </motion.div>
+        
         <motion.div
           className="hero__actions"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <Link to="/shop" className="btn btn-primary btn-large">Explore Collection</Link>
-          <Link to="/about" className="btn btn-secondary btn-large" style={{ borderColor: 'rgba(253,251,247,0.3)', color: 'var(--warm-white)' }}>Our Story</Link>
+          <Link to="/shop" className="btn btn-primary btn-large">
+            Shop Collection
+            <ArrowRight size={20} />
+          </Link>
+          <Link to="/about" className="btn btn-secondary btn-large">
+            Our Story
+          </Link>
+        </motion.div>
+        
+        <motion.div
+          className="hero__trust"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+        >
+          <div className="hero__trust-item">
+            <Shield size={16} />
+            <span>5-Year Warranty</span>
+          </div>
+          <div className="hero__trust-item">
+            <Truck size={16} />
+            <span>Free Shipping</span>
+          </div>
+          <div className="hero__trust-item">
+            <Heart size={16} />
+            <span>Loved by 10K+</span>
+          </div>
         </motion.div>
       </motion.div>
+      
       <motion.div
         className="hero__scroll"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 2, duration: 0.8 }}
       >
         <span>Scroll to explore</span>
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
@@ -134,7 +188,11 @@ function CategoriesSection() {
       <div className="container">
         <div className="section-header">
           <span className="section-subtitle">Curated Collections</span>
-          <h2 className="section-title">Shop by Room</h2>
+          <AnimatedText 
+            el="h2"
+            text="Shop by Room"
+            className="section-title"
+          />
         </div>
         <div className="categories__grid">
           {CATEGORIES.slice(0, 4).map((cat, i) => (
@@ -170,7 +228,12 @@ function FeaturedProducts() {
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', textAlign: 'left' }}>
           <div>
             <span className="section-subtitle">Just Arrived</span>
-            <h2 className="section-title" style={{ marginBottom: 0 }}>Latest Arrivals</h2>
+            <AnimatedText 
+              el="h2"
+              text="Latest Arrivals"
+              className="section-title"
+              style={{ marginBottom: 0 }}
+            />
           </div>
           <Link to="/shop" className="btn btn-ghost">
             View All <ArrowRight size={16} />
@@ -202,7 +265,10 @@ function LifestyleVideo() {
         >
           <div className="lifestyle__text">
             <span className="section-subtitle">The Cozhaven Difference</span>
-            <h2>Furniture That<br />Tells Your Story</h2>
+            <AnimatedText 
+              el="h2"
+              text={["Furniture That","Tells Your Story"]}
+            />
             <p>Every Cozhaven piece is designed to become part of your life — not just fill a room. From the first sketch to the final stitch, we obsess over the details so you can simply enjoy the comfort.</p>
             <div className="lifestyle__features">
               <div className="lifestyle__feature">
@@ -274,7 +340,12 @@ function ReviewsSection() {
           >
             <div className="reviews-v2__header">
               <span className="section-subtitle">Customer Love</span>
-              <h2 className="section-title" style={{ textAlign: 'left' }}>Real Stories,<br />Real Comfort</h2>
+              <AnimatedText 
+                el="h2"
+                text={["Real Stories,","Real Comfort"]}
+                className="section-title"
+                style={{ textAlign: 'left' }}
+              />
               <div className="reviews-v2__stats">
                 <div><strong>4.9</strong><span>/5 avg rating</span></div>
                 <div className="reviews-v2__stats-divider" />
@@ -374,7 +445,7 @@ function StoreOpening() {
         >
           <div className="store-opening__glow" />
           <span className="section-subtitle">Exciting News</span>
-          <h2>Flagship Store Opening</h2>
+          <AnimatedText el="h2" text="Flagship Store Opening" />
           <p className="store-opening__date">April 5, 2025</p>
           <div className="store-opening__info">
             <div><MapPin size={18} /> <span>Greater Toronto Area, Ontario</span></div>
@@ -402,7 +473,7 @@ function InstagramFeed() {
     <section className="instagram">
       <div className="container" style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>
         <span className="section-subtitle">@cozhaven</span>
-        <h2 className="section-title">Follow Our Journey</h2>
+        <AnimatedText el="h2" text="Follow Our Journey" className="section-title" />
       </div>
       <div className="instagram__grid">
         {images.map((img, i) => (
@@ -436,7 +507,12 @@ function JournalPreview() {
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', textAlign: 'left' }}>
           <div>
             <span className="section-subtitle">The Journal</span>
-            <h2 className="section-title" style={{ marginBottom: 0 }}>Design Inspiration</h2>
+            <AnimatedText 
+              el="h2"
+              text="Design Inspiration"
+              className="section-title"
+              style={{ marginBottom: 0 }}
+            />
           </div>
           <Link to="/blog" className="btn btn-ghost">Read All <ArrowRight size={16} /></Link>
         </div>

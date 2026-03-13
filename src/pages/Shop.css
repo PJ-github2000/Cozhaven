@@ -95,6 +95,185 @@
   color: var(--charcoal-muted);
 }
 
+/* Color Swatches */
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--taupe-light);
+  cursor: pointer;
+  transition: all var(--duration-base);
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  border-color: var(--deep-charcoal);
+}
+
+.color-swatch.active {
+  border-color: var(--deep-charcoal);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--deep-charcoal);
+}
+
+/* Size Checkboxes */
+.size-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.size-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.size-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--taupe-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-base);
+  flex-shrink: 0;
+}
+
+.size-checkbox input:checked + .checkmark {
+  background: var(--deep-charcoal);
+  border-color: var(--deep-charcoal);
+}
+
+.size-checkbox input:checked + .checkmark::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.size-label {
+  font-size: 0.9rem;
+  color: var(--deep-charcoal);
+}
+
+/* Rating Options */
+.rating-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rating-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-base);
+  color: var(--deep-charcoal);
+}
+
+.rating-option:hover {
+  background: var(--soft-cream);
+}
+
+.rating-option.active {
+  background: rgba(166, 124, 82, 0.1);
+  border-color: var(--rich-bronze);
+}
+
+.rating-option span {
+  font-size: 0.85rem;
+  margin-left: var(--space-1);
+}
+
+/* Availability Toggle */
+.availability-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+  color: var(--deep-charcoal);
+}
+
+.availability-toggle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch {
+  width: 44px;
+  height: 24px;
+  background: var(--taupe-light);
+  border-radius: 12px;
+  position: relative;
+  transition: all var(--duration-base);
+  flex-shrink: 0;
+}
+
+.toggle-switch::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: all var(--duration-base);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.availability-toggle input:checked + .toggle-switch {
+  background: var(--rich-bronze);
+}
+
+.availability-toggle input:checked + .toggle-switch::before {
+  transform: translateX(20px);
+}
+
+/* Clear Filters Button */
+.clear-filters {
+  margin-top: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: transparent;
+  border: 1px dashed var(--taupe-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--charcoal-muted);
+  cursor: pointer;
+  transition: all var(--duration-base);
+}
+
+.clear-filters:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
 .shop-toolbar {
   display: flex;
   justify-content: space-between;

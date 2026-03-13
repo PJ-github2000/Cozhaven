@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-sticky);
+  z-index: 1000;
   transition: all var(--duration-slow) var(--ease-smooth);
 }
 
@@ -47,6 +47,7 @@
 .header--transparent .header__action-btn,
 .header--transparent .header__menu-toggle {
   color: var(--warm-white);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .header--transparent .header__nav-link::after {

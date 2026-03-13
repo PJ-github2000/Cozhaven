@@ -2,9 +2,29 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
+import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Breadcrumbs from './components/Breadcrumbs';
+import { useEffect, useState, lazy } from 'react';
+import { ArrowUp } from 'lucide-react';
+
+// Lazy-loaded pages for code splitting - commented out for testing
+// const Home = lazy(() => import('./pages/Home'));
+// const Shop = lazy(() => import('./pages/Shop'));
+// const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+// const About = lazy(() => import('./pages/About'));
+// const Blog = lazy(() => import('./pages/Blog'));
+// const Contact = lazy(() => import('./pages/Contact'));
+// const Wishlist = lazy(() => import('./pages/Wishlist'));
+// const Checkout = lazy(() => import('./pages/Checkout'));
+// const OrderSuccess = lazy(() => import('./pages/OrderSuccess'));
+// const ShippingReturns = lazy(() => import('./pages/ShippingReturns'));
+// const FAQ = lazy(() => import('./pages/FAQ'));
+// const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+// const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
@@ -12,33 +32,46 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Wishlist from './pages/Wishlist';
-import { useEffect, useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
+import ShippingReturns from './pages/ShippingReturns';
+import FAQ from './pages/FAQ';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <WishlistProvider>
-          <ToastProvider>
-            <a href="#main-content" className="skip-to-content">Skip to content</a>
-            <ScrollProgress />
-            <Header />
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/products/:id" element={<ProductDetail />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-            </Routes>
-            <Footer />
-            <BackToTop />
-          </ToastProvider>
-        </WishlistProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <ToastProvider>
+              <a href="#main-content" className="skip-to-content">Skip to content</a>
+              <ScrollProgress />
+              <Header />
+              <Breadcrumbs />
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/checkout/success" element={<OrderSuccess />} />
+                <Route path="/shipping-returns" element={<ShippingReturns />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<TermsOfService />} />
+              </Routes>
+              <Footer />
+              <BackToTop />
+            </ToastProvider>
+          </WishlistProvider>
+        </CartProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

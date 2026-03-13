@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, User, ShoppingBag, Heart, Menu, X, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext';
 import CartDrawer from './CartDrawer';
 import SearchModal from './SearchModal';
+import AuthModal from './AuthModal';
 import './Header.css';
 
 export default function Header() {
@@ -13,12 +15,15 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { itemCount } = useCart();
   const { items: wishItems } = useWishlist();
+  const { user, logout } = useAuth();
   const location = useLocation();
 
   // Pages with dark hero backgrounds need white header text
-  const isHeroPage = location.pathname === '/' || location.pathname === '/about';
+  const isHeroPage = (location.pathname === '/' || location.pathname === '/about') 
+    && (typeof window !== 'undefined' && window.innerWidth > 768);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -80,6 +85,30 @@ export default function Header() {
               <Heart size={20} />
               {wishItems.length > 0 && <span className="header__badge">{wishItems.length}</span>}
             </Link>
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <span style={{ fontSize: '0.85rem', color: isHeroPage && !scrolled ? 'var(--warm-white)' : 'var(--deep-charcoal)' }}>
+                  Hi, {user.first_name}!
+                </span>
+                <button 
+                  className="header__action-btn" 
+                  onClick={logout} 
+                  aria-label="Logout"
+                  title="Logout"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            ) : (
+              <button 
+                className="header__action-btn" 
+                onClick={() => setAuthModalOpen(true)} 
+                aria-label="Account"
+                title="Sign In"
+              >
+                <User size={20} />
+              </button>
+            )}
             <button className="header__action-btn" onClick={() => setCartOpen(true)} aria-label="Shopping cart">
               <ShoppingBag size={20} />
               {itemCount > 0 && (
@@ -129,6 +158,7 @@ export default function Header() {
 
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </>
   );
 }

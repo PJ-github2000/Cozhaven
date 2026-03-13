@@ -81,10 +81,10 @@ export default function Footer() {
 
           <div className="footer__col">
             <h4>Support</h4>
-            <a href="#">Shipping & Returns</a>
+            <Link to="/shipping-returns">Shipping & Returns</Link>
             <a href="#">Care Guide</a>
             <a href="#">Warranty</a>
-            <a href="#">FAQ</a>
+            <Link to="/faq">FAQ</Link>
             <a href="#">Size Guide</a>
             <a href="#">Financing</a>
           </div>
@@ -93,8 +93,8 @@ export default function Footer() {
         <div className="footer__bottom">
           <p>© 2025 Cozhaven. All rights reserved. Made with ♥ in Canada.</p>
           <div className="footer__bottom-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
             <a href="#">Accessibility</a>
           </div>
         </div>

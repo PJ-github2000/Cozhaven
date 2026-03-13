@@ -1,0 +1,220 @@
+/* ═══════════════════════════════════════════════
+   FAQ PAGE STYLES
+   ═══════════════════════════════════════════════ */
+
+.faq-page {
+  padding-top: calc(var(--header-height) + var(--space-6));
+  background: var(--warm-white);
+  min-height: 100vh;
+}
+
+/* Hero */
+.faq-hero {
+  text-align: center;
+  padding: var(--space-10) 0 var(--space-8);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-hero .section-subtitle {
+  color: var(--rich-bronze);
+}
+
+.faq-hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: var(--space-3);
+}
+
+.faq-hero p {
+  font-size: 1.1rem;
+  color: var(--charcoal-muted);
+}
+
+/* Category Filters */
+.faq-filters {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+  padding: 0 var(--space-4);
+}
+
+.filter-btn {
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 1px solid var(--taupe-light);
+  border-radius: var(--radius-full);
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  color: var(--charcoal-muted);
+  cursor: pointer;
+  transition: all var(--duration-base);
+}
+
+.filter-btn:hover {
+  border-color: var(--rich-bronze);
+  color: var(--rich-bronze);
+}
+
+.filter-btn.active {
+  background: var(--rich-bronze);
+  border-color: var(--rich-bronze);
+  color: white;
+}
+
+/* FAQ List */
+.faq-list {
+  max-width: 900px;
+  margin: 0 auto var(--space-8);
+  padding: 0 var(--space-4);
+}
+
+.faq-item {
+  margin-bottom: var(--space-3);
+  background: var(--warm-white);
+  border: 1px solid var(--taupe-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--duration-base);
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--deep-charcoal);
+}
+
+.faq-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(166, 124, 82, 0.1);
+  color: var(--rich-bronze);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.faq-question span {
+  flex: 1;
+}
+
+.faq-question .chevron {
+  flex-shrink: 0;
+  transition: transform var(--duration-base);
+}
+
+.faq-question .chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  overflow: hidden;
+}
+
+.faq-answer p {
+  padding: 0 var(--space-4) var(--space-4) calc(var(--space-4) + 40px + var(--space-3));
+  line-height: 1.7;
+  color: var(--charcoal-muted);
+  font-size: 0.95rem;
+}
+
+/* Help CTA */
+.faq-help-cta {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  background: var(--deep-charcoal);
+  border-radius: var(--radius-xl);
+  color: var(--warm-white);
+}
+
+.faq-help-cta h2 {
+  color: var(--warm-white);
+  font-size: 1.8rem;
+  margin-bottom: var(--space-2);
+}
+
+.faq-help-cta > p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-4);
+}
+
+.help-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.help-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4);
+  height: 48px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: var(--deep-charcoal);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .faq-hero {
+    padding: var(--space-6) 0;
+  }
+
+  .filter-btn {
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.85rem;
+  }
+
+  .faq-question {
+    font-size: 0.9rem;
+    padding: var(--space-3);
+  }
+
+  .faq-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .faq-answer p {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .help-actions {
+    flex-direction: column;
+  }
+
+  .help-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
