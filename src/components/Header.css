@@ -95,11 +95,11 @@
 }
 
 .header__nav-link {
-  font-family: var(--font-accent);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: var(--font-base);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
   color: var(--charcoal-muted);
   position: relative;
   padding: var(--space-1) 0;
@@ -213,12 +213,15 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  padding: 12px var(--space-4);
-  background: var(--deep-charcoal);
-  color: var(--warm-white);
-  font-size: 0.8rem;
-  font-family: var(--font-body);
+  padding: 8px var(--space-4);
+  background: #E12121;
+  color: white;
+  font-size: 0.75rem;
+  font-family: var(--font-base);
+  font-weight: 600;
   text-align: center;
+  position: relative;
+  z-index: 1001;
 }
 
 .promo-banner code {

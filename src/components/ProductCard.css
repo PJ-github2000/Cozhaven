@@ -4,8 +4,8 @@
 
 .product-card__image-wrap {
   position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--radius-lg);
+  aspect-ratio: 1 / 1;
+  border-radius: 0;
   overflow: hidden;
   background: var(--soft-cream);
 }
@@ -123,8 +123,8 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .product-card__info {
@@ -175,5 +175,5 @@
 }
 
 .product-card__sale {
-  color: var(--error);
+  color: #E12121;
 }

@@ -2,7 +2,8 @@ import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SlidersHorizontal, Grid3X3, List, X, ChevronDown, Star } from 'lucide-react';
-import PRODUCTS, { CATEGORIES } from '../data/products';
+import { CATEGORIES } from '../data/products';
+import { useProducts } from '../context/ProductsContext';
 import ProductCard from '../components/ProductCard';
 import './Shop.css';
 
@@ -21,11 +22,14 @@ export default function Shop() {
   const [inStockOnly, setInStockOnly] = useState(false);
 
   // Extract unique colors and sizes from products
-  const allColors = [...new Set(PRODUCTS.flatMap(p => p.colors))];
-  const allSizes = [...new Set(PRODUCTS.flatMap(p => p.sizes))];
+  const { products, loading } = useProducts();
+
+  // Extract unique colors and sizes from products
+  const allColors = [...new Set(products.flatMap(p => p.colors || []))];
+  const allSizes = [...new Set(products.flatMap(p => p.sizes || []))];
 
   const filtered = useMemo(() => {
-    let items = [...PRODUCTS];
+    let items = [...products];
     if (category !== 'all') items = items.filter(p => p.category === category);
     if (priceRange) items = items.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
     if (selectedColors.length > 0) {
@@ -45,7 +49,9 @@ export default function Shop() {
       default: break;
     }
     return items;
-  }, [category, sortBy, priceRange, selectedColors, selectedSizes, minRating, inStockOnly]);
+  }, [category, sortBy, priceRange, selectedColors, selectedSizes, minRating, inStockOnly, products]);
+
+  if (loading) return null;
 
   return (
     <main className="shop-page">

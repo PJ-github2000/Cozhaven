@@ -3,6 +3,7 @@ import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
+import { ProductsProvider } from './context/ProductsContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -43,9 +44,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <ToastProvider>
+        <ProductsProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <ToastProvider>
               <a href="#main-content" className="skip-to-content">Skip to content</a>
               <ScrollProgress />
               <Header />
@@ -71,6 +73,7 @@ export default function App() {
             </ToastProvider>
           </WishlistProvider>
         </CartProvider>
+        </ProductsProvider>
       </AuthProvider>
     </BrowserRouter>
   );

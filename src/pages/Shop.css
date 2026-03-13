@@ -1,21 +1,26 @@
 .shop-page { padding-top: var(--header-height); }
 
 .shop-hero {
-  padding: var(--space-10) 0 var(--space-6);
+  padding: var(--space-4) 0 var(--space-3);
   background: transparent;
   border-bottom: 1px solid var(--taupe-light);
   text-align: center;
 }
 
-.shop-hero h1 { margin-bottom: var(--space-1); }
-.shop-hero p { color: var(--charcoal-muted); }
+.shop-hero h1 { 
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 2.5rem;
+  margin-bottom: var(--space-1); 
+}
+.shop-hero p { color: var(--charcoal-muted); font-size: 0.9rem; }
 
 .shop-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
-  gap: var(--space-6);
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-10);
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-6);
 }
 
 .shop-filters {
@@ -28,17 +33,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
 }
 
 .shop-filters__header h3 {
-  font-family: var(--font-display);
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .filter-group {
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--soft-cream);
 }
 
@@ -65,7 +71,7 @@
 }
 
 .filter-opt:hover { background: var(--soft-cream); color: var(--deep-charcoal); }
-.filter-opt.active { background: var(--deep-charcoal); color: var(--warm-white); }
+.filter-opt.active { background: #fafafa; border-left: 3px solid var(--deep-charcoal); color: var(--deep-charcoal); font-weight: 600; }
 .filter-opt span { font-size: 0.8rem; opacity: 0.6; }
 
 .price-slider {
@@ -119,7 +125,7 @@
 
 .color-swatch.active {
   border-color: var(--deep-charcoal);
-  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--deep-charcoal);
+  box-shadow: 0 0 0 2px white, 0 0 0 3px var(--deep-charcoal);
 }
 
 /* Size Checkboxes */
@@ -157,15 +163,16 @@
 }
 
 .size-checkbox input:checked + .checkmark {
-  background: var(--deep-charcoal);
+  background: white;
   border-color: var(--deep-charcoal);
 }
 
 .size-checkbox input:checked + .checkmark::after {
-  content: '✓';
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--deep-charcoal);
+  border-radius: 0;
 }
 
 .size-label {
@@ -352,6 +359,6 @@
   .shop-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .shop-grid { grid-template-columns: 1fr; }
 }

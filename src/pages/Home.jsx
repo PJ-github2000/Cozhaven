@@ -2,7 +2,8 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowDown, Star, ChevronLeft, ChevronRight, MapPin, Clock, Truck, Shield, Heart, Sparkles, Award, Users, Play, Pause, Quote } from 'lucide-react';
-import PRODUCTS, { CATEGORIES, REVIEWS, BLOG_POSTS } from '../data/products';
+import { CATEGORIES, REVIEWS, BLOG_POSTS } from '../data/products';
+import { useProducts } from '../context/ProductsContext';
 import ProductCard from '../components/ProductCard';
 import AnimatedText from '../components/AnimatedText';
 import './Home.css';
@@ -221,16 +222,20 @@ function CategoriesSection() {
 
 /* ═══ FEATURED PRODUCTS ═══ */
 function FeaturedProducts() {
-  const featured = PRODUCTS.filter(p => [3, 6, 9, 2, 13, 8, 11, 4].includes(p.id));
+  const { products, loading } = useProducts();
+  const featured = products.filter(p => [1, 2, 3, 4, 5, 6, 7, 8].includes(p.id));
+
+  if (loading) return null;
+
   return (
     <section className="featured section-padding" style={{ background: 'var(--soft-cream)' }}>
       <div className="container">
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', textAlign: 'left' }}>
           <div>
-            <span className="section-subtitle">Just Arrived</span>
+            <span className="section-subtitle">Highest Priority</span>
             <AnimatedText 
               el="h2"
-              text="Latest Arrivals"
+              text="Canadian Made Collection"
               className="section-title"
               style={{ marginBottom: 0 }}
             />
@@ -446,10 +451,10 @@ function StoreOpening() {
           <div className="store-opening__glow" />
           <span className="section-subtitle">Exciting News</span>
           <AnimatedText el="h2" text="Flagship Store Opening" />
-          <p className="store-opening__date">April 5, 2025</p>
+          <p className="store-opening__date">Visit Our Showroom</p>
           <div className="store-opening__info">
-            <div><MapPin size={18} /> <span>Greater Toronto Area, Ontario</span></div>
-            <div><Clock size={18} /> <span>Mon – Sat: 10AM – 8PM</span></div>
+            <div><MapPin size={18} /> <span>6435 Dixie Rd, Unit 4, Mississauga, ON L5T 1X4</span></div>
+            <div><Clock size={18} /> <span>Mon-Fri 12pm-8pm | Sat-Sun 12pm-9pm</span></div>
           </div>
           <Link to="/contact" className="btn btn-primary">Get Directions</Link>
         </motion.div>

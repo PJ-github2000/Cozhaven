@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Linkedin, Youtube, ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
+import { Instagram, Facebook, Linkedin, Youtube, ArrowRight, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '../context/ToastContext';
 import './Footer.css';
@@ -46,9 +46,8 @@ export default function Footer() {
             <p className="footer__tagline">Creating Comfort, Crafting Style.</p>
             <p className="footer__desc">Premium Canadian-made furniture for modern living. Every piece tells a story of quality craftsmanship.</p>
             <div className="footer__contact-mini">
-              <a href="tel:+16475559269"><Phone size={14} /> (647) 555-COZY</a>
-              <a href="mailto:hello@cozhaven.ca"><Mail size={14} /> hello@cozhaven.ca</a>
-              <span><MapPin size={14} /> GTA, Ontario, Canada</span>
+              <span><MapPin size={14} /> 6435 Dixie Rd, Unit 4, Mississauga, ON L5T 1X4</span>
+              <span><Clock size={14} /> Store Hours: Mon-Fri 12pm-8pm | Sat-Sun 12pm-9pm</span>
             </div>
             <div className="footer__socials">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>

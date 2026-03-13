@@ -168,7 +168,7 @@ function PromoBanner() {
   if (!visible) return null;
   return (
     <div className="promo-banner">
-      <p>🎉 Canadian-Made Comfort — <strong>20% Off</strong> with <code>COZHAVEN20</code></p>
+      <p>🛋️ Sofa Savings up to <strong>65% OFF</strong> + Extra $100 OFF with code <code>SAVE100</code></p>
       <button onClick={() => setVisible(false)} aria-label="Close promo banner"><X size={16} /></button>
     </div>
   );
