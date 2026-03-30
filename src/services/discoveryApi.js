@@ -1,6 +1,6 @@
-import { CMS_BASE_URL } from '../config';
+import { API_BASE } from './apiConfig';
 
-const DISCOVERY_BASE = '/api/discovery';
+const DISCOVERY_BASE = `${API_BASE}/discovery`;
 
 export const discoveryApi = {
   /**
