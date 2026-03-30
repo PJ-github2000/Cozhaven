@@ -27,6 +27,7 @@ venv/
 
 # Local Scratch/Logs
 *.txt
+!requirements.txt
 backend/test_results.txt
 push_result.txt
 tmp_content.txt
