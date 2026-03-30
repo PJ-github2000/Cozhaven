@@ -72,7 +72,7 @@ export default function Contact() {
 
             {/* Map placeholder */}
             <div className="contact-map">
-              <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=60" alt="Map location" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--radius-lg)', opacity: 0.8 }} />
+              <img src="https://atunus.com/wp-content/uploads/2025/06/Finding-Beauty-in-Simplicity-Wabi-Sabi-Design-for-Reflective-Business-Settings-01-1749607323.webp" alt="Map location" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--radius-lg)', opacity: 0.8 }} />
               <div className="contact-map__overlay">
                 <MapPin size={32} />
                 <span>GTA, Ontario</span>

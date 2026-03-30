@@ -1,139 +1,65 @@
-import { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { RefreshCw, Home, AlertCircle } from 'lucide-react';
 
-/**
- * Error Boundary Component
- * Catches JavaScript errors anywhere in the component tree
- * 
- * Usage:
- * Wrap your app or specific components with <ErrorBoundary>
- */
-export class ErrorBoundary extends Component {
+class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
-      error: null,
-      errorInfo: null
-    };
+    this.state = { hasError: false, error: null };
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render shows the fallback UI
     return { hasError: true, error };
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log error to console (in production, send to error tracking service)
-    console.error('🔴 Error caught by boundary:', error, errorInfo);
-    
-    // You can send to error tracking services here
-    // Example: Sentry.captureException(error, { extra: errorInfo });
-    
-    this.setState({ errorInfo });
+    // In production, you would send this to Sentry or another logging service
+    console.group('Cozhaven Application Error');
+    console.error('Error:', error);
+    console.error('ErrorInfo:', errorInfo);
+    console.groupEnd();
   }
-
-  handleReset = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
-    window.location.reload();
-  };
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="error-boundary-fallback" style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 'var(--space-6)',
-          background: 'var(--soft-cream)',
-          textAlign: 'center'
-        }}>
-          <div style={{ maxWidth: '500px' }}>
-            <h1 style={{ 
-              fontSize: '2rem', 
-              color: 'var(--deep-charcoal)',
-              marginBottom: 'var(--space-3)'
-            }}>
-              Oops! Something went wrong
-            </h1>
-            
-            <p style={{ 
-              color: 'var(--charcoal-muted)',
-              marginBottom: 'var(--space-4)',
-              lineHeight: 1.6
-            }}>
-              We're sorry for the inconvenience. Our team has been notified and we're working on fixing it.
+        <div style={styles.container}>
+          <div style={styles.card}>
+            <div style={styles.iconWrapper}>
+              <AlertCircle size={48} color="var(--charcoal-muted)" />
+            </div>
+            <h1 style={styles.title}>Something went wrong.</h1>
+            <p style={styles.text}>
+              We apologize for the inconvenience. A technical error occurred while rendering this page.
+              Our team has been notified.
             </p>
-
-            {process.env.NODE_ENV === 'development' && this.state.error && (
-              <details style={{
-                background: 'var(--warm-white)',
-                padding: 'var(--space-3)',
-                borderRadius: 'var(--radius-lg)',
-                textAlign: 'left',
-                marginBottom: 'var(--space-4)',
-                fontSize: '0.85rem'
-              }}>
-                <summary style={{ 
-                  cursor: 'pointer', 
-                  color: 'var(--error)',
-                  fontWeight: 600,
-                  marginBottom: 'var(--space-2)'
-                }}>
-                  Error Details (Development Only)
-                </summary>
-                <pre style={{ 
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word',
-                  color: 'var(--charcoal-muted)',
-                  marginTop: 'var(--space-2)'
-                }}>
-                  {this.state.error.toString()}
-                  {this.state.errorInfo?.componentStack}
-                </pre>
+            
+            <div style={styles.actions}>
+              <button 
+                onClick={() => window.location.reload()} 
+                style={styles.btnPrimary}
+                className="btn-primary"
+              >
+                <RefreshCw size={18} />
+                Refresh Page
+              </button>
+              <Link 
+                to="/" 
+                onClick={() => this.setState({ hasError: false })}
+                style={styles.btnSecondary}
+                className="btn-secondary"
+              >
+                <Home size={18} />
+                Return Home
+              </Link>
+            </div>
+            
+            {process.env.NODE_ENV === 'development' && (
+              <details style={styles.details}>
+                <summary style={styles.summary}>Error Details (Dev Only)</summary>
+                <pre style={styles.pre}>{this.state.error?.toString()}</pre>
               </details>
             )}
-
-            <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'center' }}>
-              <button
-                onClick={this.handleReset}
-                className="btn btn-primary"
-                style={{
-                  padding: '0 var(--space-4)',
-                  height: '48px'
-                }}
-              >
-                Reload Page
-              </button>
-              
-              <button
-                onClick={() => window.history.back()}
-                className="btn btn-secondary"
-                style={{
-                  padding: '0 var(--space-4)',
-                  height: '48px'
-                }}
-              >
-                Go Back
-              </button>
-            </div>
-
-            <div style={{
-              marginTop: 'var(--space-5)',
-              paddingTop: 'var(--space-4)',
-              borderTop: '1px solid var(--taupe-light)'
-            }}>
-              <p style={{ fontSize: '0.85rem', color: 'var(--charcoal-muted)' }}>
-                Need immediate help?{' '}
-                <a 
-                  href="mailto:hello@cozhaven.ca" 
-                  style={{ color: 'var(--rich-bronze)', textDecoration: 'underline' }}
-                >
-                  Contact Support
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       );
@@ -142,5 +68,93 @@ export class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
+
+const styles = {
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '80vh',
+    padding: '2rem',
+    background: 'var(--soft-cream)',
+    fontFamily: 'inherit'
+  },
+  card: {
+    maxWidth: '500px',
+    width: '100%',
+    padding: '3rem',
+    background: 'white',
+    borderRadius: '1.5rem',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
+    textAlign: 'center'
+  },
+  iconWrapper: {
+    marginBottom: '1.5rem',
+    display: 'inline-flex',
+    padding: '1rem',
+    borderRadius: '50%',
+    background: 'rgba(201, 184, 168, 0.1)'
+  },
+  title: {
+    fontSize: '2rem',
+    fontWeight: '600',
+    color: 'var(--charcoal)',
+    marginBottom: '1rem'
+  },
+  text: {
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    color: 'var(--charcoal-muted)',
+    marginBottom: '2.5rem'
+  },
+  actions: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem'
+  },
+  btnPrimary: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    width: '100%',
+    padding: '1rem',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    fontWeight: '500'
+  },
+  btnSecondary: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    width: '100%',
+    padding: '1rem',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    textDecoration: 'none'
+  },
+  details: {
+    marginTop: '2rem',
+    textAlign: 'left'
+  },
+  summary: {
+    fontSize: '0.8rem',
+    color: 'var(--charcoal-muted)',
+    cursor: 'pointer',
+    padding: '0.5rem 0'
+  },
+  pre: {
+    fontSize: '0.75rem',
+    background: '#f8f9fa',
+    padding: '1rem',
+    borderRadius: '0.5rem',
+    overflowX: 'auto',
+    color: '#e03131',
+    marginTop: '0.5rem'
+  }
+};
 
 export default ErrorBoundary;

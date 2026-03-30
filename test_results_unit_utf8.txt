@@ -1,0 +1,57 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.1, pytest-8.4.1, pluggy-1.6.0
+rootdir: C:\Users\cogni\Cozhaven
+plugins: anyio-4.12.1, Faker-37.6.0, langsmith-0.6.9, asyncio-1.1.0, mock-3.15.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 0 items / 2 errors
+
+=================================== ERRORS ====================================
+_______________ ERROR collecting backend/tests/test_products.py _______________
+ImportError while importing test module 'C:\Users\cogni\Cozhaven\backend\tests\test_products.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend\tests\test_products.py:8: in <module>
+    from main import app, get_current_user
+E   ImportError: cannot import name 'get_current_user' from 'main' (C:\Users\cogni\Cozhaven\backend\main.py)
+_______________ ERROR collecting backend/tests/test_checkout.py _______________
+ImportError while importing test module 'C:\Users\cogni\Cozhaven\backend\tests\test_checkout.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend\tests\test_checkout.py:9: in <module>
+    from main import app, DATABASE_URL, _calculate_order_total
+E   ImportError: cannot import name 'DATABASE_URL' from 'main' (C:\Users\cogni\Cozhaven\backend\main.py)
+============================== warnings summary ===============================
+..\AppData\Roaming\Python\Python313\site-packages\starlette\formparsers.py:12
+  C:\Users\cogni\AppData\Roaming\Python\Python313\site-packages\starlette\formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+backend\main.py:110
+  C:\Users\cogni\Cozhaven\backend\main.py:110: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+..\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py:4495
+  C:\Users\cogni\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR backend/tests/test_products.py
+ERROR backend/tests/test_checkout.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+======================== 3 warnings, 2 errors in 1.11s ========================

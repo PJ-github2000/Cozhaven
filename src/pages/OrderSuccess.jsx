@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Check, Package, Truck, Mail, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, Package, Truck, Mail, ArrowRight, FileText, X, Download } from 'lucide-react';
+import OrderInvoice from '../components/OrderInvoice';
+import './OrderSuccess.css';
 
 export default function OrderSuccess() {
   const location = useLocation();
@@ -10,8 +13,21 @@ export default function OrderSuccess() {
   const lastOrder = JSON.parse(localStorage.getItem('cozhaven_last_order') || '{}');
   const displayOrderNumber = orderNumber || lastOrder.orderNumber;
   const displayTotal = total || lastOrder.total;
+  const [showInvoice, setShowInvoice] = useState(false);
   const estimatedDelivery = new Date();
   estimatedDelivery.setDate(estimatedDelivery.getDate() + 7);
+
+  // Reconstruct order object for invoice
+  const orderData = {
+    id: displayOrderNumber?.replace('CH-', '') || '0000',
+    customer_name: lastOrder.customer?.firstName ? `${lastOrder.customer.firstName} ${lastOrder.customer.lastName}` : 'Valued Customer',
+    user_email: lastOrder.customer?.email || 'N/A',
+    shipping_address: lastOrder.customer?.address || 'N/A',
+    total_amount: displayTotal || 0,
+    created_at: new Date().toISOString(),
+    status: 'Confirmed',
+    items: lastOrder.items || []
+  };
 
   return (
     <main className="order-success-page">
@@ -61,11 +77,37 @@ export default function OrderSuccess() {
 
             <div className="order-actions">
               <Link to="/shop" className="btn btn-primary">Continue Shopping</Link>
-              <button className="btn btn-secondary" onClick={() => window.print()}>
-                Print Receipt
+              <button className="btn btn-secondary btn-icon-text" onClick={() => setShowInvoice(true)}>
+                <FileText size={18} /> View Invoice
               </button>
             </div>
           </div>
+
+          <AnimatePresence>
+            {showInvoice && (
+              <motion.div 
+                className="invoice-modal-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className="invoice-modal">
+                  <div className="invoice-modal__header no-print">
+                    <h3>Order Invoice</h3>
+                    <div className="header-actions">
+                      <button className="btn btn-primary btn-sm" onClick={() => window.print()}>
+                        <Download size={16} /> Print / Save PDF
+                      </button>
+                      <button className="close-icon" onClick={() => setShowInvoice(false)}><X size={24} /></button>
+                    </div>
+                  </div>
+                  <div className="invoice-modal__body">
+                    <OrderInvoice order={orderData} />
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Next Steps */}
           <div className="next-steps">

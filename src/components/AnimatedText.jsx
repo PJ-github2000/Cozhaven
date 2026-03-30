@@ -26,7 +26,6 @@ const AnimatedText = ({ text, el: Tag = "p", className, once = true, ...props })
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         type: "spring",
         damping: 12,
@@ -36,7 +35,6 @@ const AnimatedText = ({ text, el: Tag = "p", className, once = true, ...props })
     hidden: {
       opacity: 0,
       y: 10,
-      filter: "blur(4px)",
       transition: {
         type: "spring",
         damping: 12,

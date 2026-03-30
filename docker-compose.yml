@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Use internal services by default, override with .env if external
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-cozhaven_user}:${POSTGRES_PASSWORD:-cozhaven_pass}@db:5432/${POSTGRES_DB:-cozhaven_db}
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - DEBUG=false
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./backend/uploads:/app/backend/uploads
+    restart: always
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-cozhaven_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-cozhaven_pass}
+      - POSTGRES_DB=${POSTGRES_DB:-cozhaven_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+
+volumes:
+  postgres_data:
+  uploads:

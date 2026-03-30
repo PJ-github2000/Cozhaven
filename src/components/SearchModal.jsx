@@ -2,38 +2,47 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { useProducts } from '../context/ProductsContext';
 import './SearchModal.css';
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const { products } = useProducts();
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const inputRef = useRef();
   const navigate = useNavigate();
-
-  const { products } = useProducts();
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
       setQuery('');
-      setResults([]);
+      setDebouncedQuery('');
     }
   }, [isOpen]);
 
   useEffect(() => {
-    if (query.length > 1) {
-      const q = query.toLowerCase();
-      setResults((products || []).filter(p =>
-        p.name.toLowerCase().includes(q) || p.category.includes(q) || p.subcategory.toLowerCase().includes(q)
-      ).slice(0, 6));
-    } else {
-      setResults([]);
-    }
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+    return () => clearTimeout(timer);
   }, [query]);
 
-  const goToProduct = (id) => {
-    navigate(`/products/${id}`);
+  const { data: results = [], isLoading } = useQuery({
+    queryKey: ['products', 'search', debouncedQuery],
+    queryFn: async () => {
+      if (!debouncedQuery.trim() || debouncedQuery.trim().length <= 1) return [];
+      const response = await fetch(`/api/products/search?q=${encodeURIComponent(debouncedQuery)}&limit=6`);
+      if (!response.ok) throw new Error('Search failed');
+      return response.json();
+    },
+    enabled: debouncedQuery.trim().length > 1,
+    staleTime: 1000 * 60 * 5, // 5 mins
+  });
+
+
+  const goToProduct = (product) => {
+    navigate(`/products/${product.slug || product.id}`);
     onClose();
   };
 
@@ -61,10 +70,13 @@ export default function SearchModal({ isOpen, onClose }) {
               />
               <button onClick={onClose} className="search-modal__close"><X size={20} /></button>
             </div>
-            {results.length > 0 && (
+            {isLoading && (
+              <p className="search-modal__empty">Searching...</p>
+            )}
+            {!isLoading && results.length > 0 && (
               <div className="search-modal__results">
                 {results.map(p => (
-                  <button key={p.id} className="search-result" onClick={() => goToProduct(p.id)}>
+                  <button key={p.id} className="search-result" onClick={() => goToProduct(p)}>
                     <img src={p.image} alt={p.name} />
                     <div>
                       <h4>{p.name}</h4>
@@ -74,7 +86,7 @@ export default function SearchModal({ isOpen, onClose }) {
                 ))}
               </div>
             )}
-            {query.length > 1 && results.length === 0 && (
+            {!isLoading && query.length > 1 && results.length === 0 && (
               <p className="search-modal__empty">No results found for "{query}"</p>
             )}
           </motion.div>

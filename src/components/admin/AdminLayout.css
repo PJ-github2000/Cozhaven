@@ -1,0 +1,277 @@
+/*
+  Admin Layout — Compact
+*/
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--admin-bg);
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid var(--admin-border);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.admin-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: 14px;
+  padding: 0 8px;
+  margin-bottom: 20px;
+  color: var(--admin-text);
+}
+
+.admin-tag {
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Nav */
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.admin-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  color: var(--admin-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--admin-radius);
+  transition: all 0.1s ease;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.admin-nav__link svg { width: 16px; height: 16px; }
+.admin-nav__link:hover { background: var(--admin-bg); color: var(--admin-text); }
+.admin-nav__link.active { background: var(--admin-primary); color: #fff; }
+.admin-nav__link.logout { color: var(--admin-text-faint); }
+.admin-nav__link.logout:hover { color: var(--admin-danger); background: #FEF2F2; }
+
+.admin-sidebar__footer {
+  margin-top: auto;
+  border-top: 1px solid var(--admin-border);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Header */
+.admin-header {
+  height: 48px;
+  background: #fff;
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 240px;
+  z-index: 99;
+}
+
+.admin-header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-back-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--admin-text-muted);
+  transition: all 0.1s ease;
+}
+.admin-back-btn:hover { border-color: var(--admin-primary); color: var(--admin-text); }
+.admin-back-btn svg { width: 16px; height: 16px; }
+
+.admin-header__left h1 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.admin-header__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Notification */
+.admin-icon-btn { position: relative; }
+.notification-dot {
+  position: absolute; top: 4px; right: 4px; width: 6px; height: 6px;
+  background: var(--admin-danger); border-radius: 50%; border: 1.5px solid #fff;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--admin-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  border: 2px solid #fff;
+}
+
+.notification-badge.stale {
+  background: var(--admin-danger);
+}
+
+.admin-notifications-popover {
+  position: absolute;
+  top: 42px;
+  right: 76px;
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  background: #fff;
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+  overflow: hidden;
+}
+
+.admin-notifications-popover__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-notifications-popover__head strong,
+.admin-notification-item__top strong {
+  font-size: 13px;
+  color: var(--admin-text);
+}
+
+.admin-notifications-popover__head span,
+.admin-notification-item__meta {
+  font-size: 12px;
+  color: var(--admin-text-faint);
+}
+
+.admin-notifications-popover__list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.admin-notification-item {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--admin-border);
+  background: #fff;
+  text-align: left;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.admin-notification-item:hover {
+  background: var(--admin-bg);
+}
+
+.admin-notification-item__top,
+.admin-notification-item__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.admin-notifications-empty {
+  padding: 18px 16px;
+  font-size: 13px;
+  color: var(--admin-text-faint);
+}
+
+/* Profile */
+.admin-profile { display: flex; align-items: center; gap: 8px; }
+.admin-avatar {
+  background: var(--admin-primary); color: #fff;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 11px;
+}
+.admin-info { display: flex; flex-direction: column; }
+.admin-name { font-size: 12px; font-weight: 600; color: var(--admin-text); }
+.admin-role { font-size: 11px; color: var(--admin-text-faint); }
+
+/* Main */
+.admin-main {
+  flex: 1;
+  margin-left: 240px;
+  padding-top: 48px;
+  min-height: 100vh;
+}
+
+.admin-content {
+  padding: 16px 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .admin-sidebar { width: 200px; }
+  .admin-header  { left: 200px; }
+  .admin-main    { margin-left: 200px; }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar { transform: translateX(-100%); transition: transform 0.15s ease; }
+  .admin-sidebar.open { transform: translateX(0); }
+  .admin-header { left: 0; padding: 0 12px; }
+  .admin-main { margin-left: 0; }
+  .admin-content { padding: 12px; }
+  .admin-profile { display: none; }
+  .admin-notifications-popover { right: 12px; top: 48px; }
+}

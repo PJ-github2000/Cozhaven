@@ -9,7 +9,8 @@ export default function About() {
     <main className="about-page">
       {/* Hero */}
       <section className="about-hero">
-        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80" alt="Cozhaven showroom" />
+        <img src="https://atunus.com/wp-content/uploads/2025/06/Crafting-Serene-and-Mindful-Workspaces-in-the-Modern-Business-World-01-1749606998.webp" alt="Cozhaven showroom" />
+ showcase the premium furniture in a real setting.
         <div className="about-hero__overlay" />
         <motion.div className="about-hero__content container" {...fadeIn}>
           <span className="section-subtitle" style={{ color: 'var(--rich-bronze)' }}>Our Story</span>

@@ -11,14 +11,17 @@
   --font-accent: 'Manrope', sans-serif;
 
   /* Colors — Primary */
-  --warm-white: #FAFAFA;     /* Off-white to reduce eye strain */
-  --deep-charcoal: #1A1A1A;  /* Near black for high contrast */
+  --warm-white: #FCFBFA;
+  /* Even softer, more editorial off-white */
+  --deep-charcoal: #121212;
+  /* Pure, sharp charcoal */
   --warm-taupe: #B3A89D;
-
   /* Colors — Accent */
-  --rich-bronze: #8A6540;    /* Darker, more refined bronze */
-  --deep-sage: #6D7D66;
-  --soft-cream: #F8F7F5;     /* Very subtle off-white for sections */
+  --rich-bronze: #8A6540;
+  --deep-sage: #5F6D59;
+  /* More sophisticated sage */
+  --soft-cream: #F5F3F0;
+  /* Refined background shade */
 
   /* Colors — Functional */
   --success: #556B56;
@@ -35,22 +38,32 @@
   --cream-dark: #EAE6DF;
 
   /* Spacing (Reduced for tight, minimal look) */
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 1rem;     /* 16px */
-  --space-4: 1.5rem;   /* 24px */
-  --space-5: 2rem;     /* 32px */
-  --space-6: 2.5rem;   /* 40px */
-  --space-8: 3rem;     /* 48px */
-  --space-10: 4rem;    /* 64px */
-  --space-12: 5rem;    /* 80px */
-  --space-15: 6rem;    /* 96px */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 1rem;
+  /* 16px */
+  --space-4: 1.5rem;
+  /* 24px */
+  --space-5: 2rem;
+  /* 32px */
+  --space-6: 2.5rem;
+  /* 40px */
+  --space-8: 3rem;
+  /* 48px */
+  --space-10: 4rem;
+  /* 64px */
+  --space-12: 5rem;
+  /* 80px */
+  --space-15: 6rem;
+  /* 96px */
 
-  /* Shadows — Flattened for editorial look */
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 10px 40px rgba(0, 0, 0, 0.06);
+  /* Shadows — Subtle depth without being dramatic */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.08);
   --shadow-glow: none;
 
   /* Borders — Subtle rounded edges for better UX */
@@ -59,7 +72,8 @@
   --radius-lg: 8px;
   --radius-xl: 12px;
   --radius-2xl: 16px;
-  --radius-full: 9999px; /* Only for specific circular elements like icons */
+  --radius-full: 9999px;
+  /* Only for specific circular elements like icons */
 
   /* Transitions */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,7 +96,13 @@
   --z-overlay: 300;
   --z-modal: 400;
   --z-toast: 500;
-  --z-cursor: 600;
+  --z-cursor: 1000;
+  /* Ensure cursor is above everything */
+
+  /* Cursor Tokens */
+  --cursor-size: 20px;
+  --cursor-blend: difference;
+  --cursor-color: var(--warm-white);
 
   /* Scroll progress bar */
   --scroll-progress: 0;
@@ -107,9 +127,9 @@ html {
 body {
   font-family: var(--font-body);
   font-weight: 400;
-  /* Mobile-first base size; larger screens are handled via clamps below */
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px;
+  /* Slightly larger base for clarity */
+  line-height: 1.65;
   color: var(--deep-charcoal);
   background-color: var(--warm-white);
   -webkit-font-smoothing: antialiased;
@@ -158,7 +178,12 @@ body::before {
 }
 
 /* ─── Typography ─── */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.15;
@@ -166,14 +191,29 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--deep-charcoal);
 }
 
-h1 { font-size: clamp(2rem, 6vw, 3.8rem); }
-h2 { font-size: clamp(1.6rem, 4.5vw, 2.6rem); }
-h3 { font-size: clamp(1.3rem, 3.5vw, 2rem); }
-h4 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+h1 {
+  font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3.5vw + 1rem, 3.5rem);
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2.5vw + 1rem, 2.75rem);
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-size: clamp(1.1rem, 1.5vw + 1rem, 1.75rem);
+  letter-spacing: -0.01em;
+}
 
 p {
-  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
-  line-height: 1.7;
+  font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.15rem);
+  line-height: 1.8;
   color: var(--charcoal-muted);
 }
 
@@ -197,7 +237,9 @@ button {
   font-size: inherit;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: inherit;
   border: none;
@@ -205,7 +247,17 @@ input, textarea, select {
   background: none;
 }
 
-ul, ol {
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+ul,
+ol {
   list-style: none;
 }
 
@@ -265,13 +317,16 @@ ul, ol {
   justify-content: center;
   gap: var(--space-1);
   font-family: var(--font-accent);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  /* Standardized sizing */
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  padding: 0 var(--space-4);
-  height: 56px;
+  padding: 0 var(--space-5);
+  height: clamp(52px, 5vw, 60px);
+  /* Responsive height */
   border-radius: var(--radius-sm);
+  /* Standard shape */
   transition: all var(--duration-base) var(--ease-smooth);
   position: relative;
   overflow: hidden;
@@ -282,7 +337,7 @@ ul, ol {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-smooth);
 }
@@ -345,10 +400,22 @@ ul, ol {
   color: var(--rich-bronze);
 }
 
+/* ─── Magnetic Effect Utility ─── */
+.magnetic-wrap {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.magnetic-content {
+  display: inline-block;
+  pointer-events: none;
+  transition: transform 0.3s var(--ease-out);
+}
+
 .btn-large {
-  height: 64px;
-  padding: 0 var(--space-6);
-  font-size: 0.85rem;
+  height: clamp(60px, 6vw, 72px);
+  padding: 0 var(--space-8);
+  font-size: 0.8rem;
 }
 
 .btn-small {
@@ -376,18 +443,23 @@ ul, ol {
 
 .input-field {
   width: 100%;
-  padding: var(--space-2);
+  padding: var(--space-3);
   font-size: 1rem;
   color: var(--deep-charcoal);
   background: var(--warm-white);
-  border: 1.5px solid var(--taupe-light);
-  border-radius: var(--radius-sm);
-  transition: all var(--duration-base) var(--ease-smooth);
+  border: 1px solid var(--taupe-light);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.input-field:hover {
+  border-color: var(--warm-taupe);
 }
 
 .input-field:focus {
-  border-color: var(--rich-bronze);
-  box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.1);
+  border-color: var(--deep-charcoal);
+  box-shadow: 0 0 0 1px var(--deep-charcoal);
 }
 
 .input-field::placeholder {
@@ -430,14 +502,16 @@ textarea.input-field {
 /* ─── Card System ─── */
 .card {
   background: white;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  transition: all var(--duration-fast);
+  transition: border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
   border: 1px solid var(--taupe-light);
 }
 
 .card:hover {
-  border-color: var(--deep-charcoal);
+  border-color: var(--warm-taupe);
+  box-shadow: var(--shadow-md);
 }
 
 /* ─── Toast Notifications ─── */
@@ -456,32 +530,47 @@ textarea.input-field {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   background: var(--deep-charcoal);
   color: var(--warm-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-xl);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   pointer-events: auto;
   min-width: 280px;
+  max-width: 420px;
+  backdrop-filter: blur(12px);
 }
 
-.toast-success { border-left: 3px solid var(--success); }
-.toast-error { border-left: 3px solid var(--error); }
-.toast-info { border-left: 3px solid var(--rich-bronze); }
+.toast-success {
+  border-left: 3px solid var(--success);
+}
+
+.toast-error {
+  border-left: 3px solid var(--error);
+}
+
+.toast-info {
+  border-left: 3px solid var(--rich-bronze);
+}
 
 /* ─── Skeleton Loading ─── */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .skeleton {
   background: linear-gradient(90deg,
-    var(--soft-cream) 25%,
-    var(--taupe-light) 37%,
-    var(--soft-cream) 63%
-  );
+      var(--soft-cream) 25%,
+      var(--taupe-light) 37%,
+      var(--soft-cream) 63%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: var(--radius-sm);
@@ -510,6 +599,7 @@ textarea.input-field {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -517,8 +607,13 @@ textarea.input-field {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideDown {
@@ -526,6 +621,7 @@ textarea.input-field {
     opacity: 0;
     transform: translateY(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -537,6 +633,7 @@ textarea.input-field {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -544,18 +641,39 @@ textarea.input-field {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(166, 124, 82, 0.3); }
-  50% { box-shadow: 0 0 0 12px rgba(166, 124, 82, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(166, 124, 82, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(166, 124, 82, 0);
+  }
 }
 
 .animate-fade-in-up {
@@ -571,12 +689,29 @@ textarea.input-field {
 }
 
 /* Stagger delays */
-.delay-1 { animation-delay: 100ms; }
-.delay-2 { animation-delay: 200ms; }
-.delay-3 { animation-delay: 300ms; }
-.delay-4 { animation-delay: 400ms; }
-.delay-5 { animation-delay: 500ms; }
-.delay-6 { animation-delay: 600ms; }
+.delay-1 {
+  animation-delay: 100ms;
+}
+
+.delay-2 {
+  animation-delay: 200ms;
+}
+
+.delay-3 {
+  animation-delay: 300ms;
+}
+
+.delay-4 {
+  animation-delay: 400ms;
+}
+
+.delay-5 {
+  animation-delay: 500ms;
+}
+
+.delay-6 {
+  animation-delay: 600ms;
+}
 
 /* ─── Responsive ─── */
 @media (max-width: 767px) {
@@ -629,6 +764,7 @@ button,
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -686,7 +822,9 @@ button,
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .page-loader p {
@@ -699,8 +837,9 @@ button,
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(42, 38, 34, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(18, 18, 18, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: var(--z-overlay);
 }
 
@@ -716,4 +855,38 @@ button,
 
 .star-empty {
   color: var(--taupe-light);
+}
+
+/* ─── Back To Top Button ─── */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--deep-charcoal);
+  color: var(--warm-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  background: var(--rich-bronze);
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
 }

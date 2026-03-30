@@ -52,24 +52,37 @@ The frontend will connect to the backend automatically. Make sure both servers a
 - **Frontend:** http://localhost:5173
 - **Backend:** http://localhost:8000
 
+## Configuration
+
+The application uses a shared `.env` file located in the project root for both frontend and backend configuration.
+
+### 1. Development Environment
+Copy `.env.example` to `.env` in the root directory:
+```bash
+cp .env.example .env
+```
+
+### 2. Production Environment
+A template is provided at `.env.production`. Ensure you set secure values for:
+- `SECRET_KEY`: A long random hex string.
+- `DATABASE_URL`: Your production database (e.g., PostgreSQL).
+- `STRIPE_SECRET_KEY` & `STRIPE_WEBHOOK_SECRET`: Your live Stripe keys.
+
+## Deployment
+
+The application is prepared for deployment via Docker:
+```bash
+docker-compose up --build
+```
+This will start the FastAPI server and a PostgreSQL database. The backend is configured to serve the frontend build from the `dist` directory.
+
 ## Default Database
 
-SQLite database (`cozhaven.db`) is created automatically on first run with tables:
-- users
-- products  
-- orders
-- order_items
+In development, a SQLite database (`cozhaven.db`) is created automatically. In production, provide a `DATABASE_URL` for PostgreSQL.
 
 ## Important Notes
 
-⚠️ **Change the SECRET_KEY in production!** 
-Find this line in `main.py`:
-```python
-SECRET_KEY = "your-secret-key-change-in-production"
-```
-
-Replace with a secure random string.
-
-## CORS Configuration
-
-Currently configured to allow requests from `http://localhost:5173` only. Update if needed.
+⚠️ **Security First**: 
+- Never commit your `.env` or `.env.production` files.
+- Ensure `SECRET_KEY` is unique and kept private.
+- Only the `VITE_` prefixed variables are exposed to the browser.

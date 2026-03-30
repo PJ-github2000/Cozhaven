@@ -68,24 +68,37 @@ export default function Footer() {
             <Link to="/shop">All Products</Link>
           </div>
 
+          {/* Company Column */}
           <div className="footer__col">
             <h4>Company</h4>
             <Link to="/about">Our Story</Link>
-            <Link to="/blog">Journal</Link>
+            <Link to="/blog">Design Journal</Link>
             <Link to="/contact">Contact Us</Link>
             <a href="#">Careers</a>
-            <a href="#">Press</a>
+            <a href="#">Sustainability</a>
             <a href="#">Trade Program</a>
           </div>
 
+          {/* Resources Column — Inspiration Driven */}
+          <div className="footer__col">
+            <h4>Resources</h4>
+            <Link to="/inspiration">Room Inspiration</Link>
+            <a href="#">Buying Guides</a>
+            <a href="#">Material Care</a>
+            <a href="#">Assembly Help</a>
+            <a href="#">Design Tips</a>
+            <a href="#">Virtual Styling</a>
+          </div>
+
+          {/* Support Column */}
           <div className="footer__col">
             <h4>Support</h4>
             <Link to="/shipping-returns">Shipping & Returns</Link>
-            <a href="#">Care Guide</a>
+            <Link to="/faq">Track Order</Link>
+            <Link to="/faq">Help Center</Link>
             <a href="#">Warranty</a>
-            <Link to="/faq">FAQ</Link>
-            <a href="#">Size Guide</a>
             <a href="#">Financing</a>
+            <Link to="/terms">Terms & Legal</Link>
           </div>
         </div>
 

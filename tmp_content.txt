@@ -1,0 +1,20 @@
+﻿import { useState, useEffect, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, Minus, Plus, ChevronDown, Star, Share2, Truck, Shield, RotateCcw, Ruler, ShoppingCart, CreditCard, Calendar, MessageCircle, Check, ChevronLeft, ChevronRight, Package, Sparkles, Layers } from 'lucide-react';
+import { useProduct } from '../context/ProductsContext';
+import { API_BASE } from '../services/apiConfig';
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useToast } from '../context/ToastContext';
+import ProductCard from '../components/ProductCard';
+import ReviewsSection from '../components/ReviewsSection';
+import UrgencyIndicators from '../components/UrgencyIndicators';
+import SizeGuide from '../components/SizeGuide';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { CATEGORIES } from '../data/products';
+import './ProductDetail.css';
+
+export default function ProductDetail() {
+  const { id } = useParams();

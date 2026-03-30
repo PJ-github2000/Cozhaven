@@ -1,0 +1,11 @@
+# Cozhaven Robots.txt
+User-agent: *
+Allow: /
+
+# Directories to ignore
+Disallow: /admin/
+Disallow: /api/
+Disallow: /checkout/success
+
+# Sitemaps
+Sitemap: https://cozhaven.com/sitemap.xml

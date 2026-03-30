@@ -1,258 +1,206 @@
-/* ═══════════════════════════════════════════════
-   SIZE GUIDE MODAL STYLES
-   ═══════════════════════════════════════════════ */
-
 .size-guide-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2000;
   padding: var(--space-4);
-  backdrop-filter: blur(4px);
 }
 
 .size-guide-modal {
-  background: var(--warm-white);
-  border-radius: var(--radius-xl);
-  max-width: 900px;
+  background: #fff;
   width: 100%;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.2);
 }
 
 .size-guide-header {
+  padding: var(--space-6) var(--space-8);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-5);
   border-bottom: 1px solid var(--taupe-light);
   position: sticky;
   top: 0;
-  background: var(--warm-white);
+  background: #fff;
   z-index: 10;
 }
 
 .size-guide-header h2 {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--deep-charcoal);
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: 1.5rem;
-  color: var(--deep-charcoal);
+  gap: 12px;
 }
 
 .close-btn {
   background: none;
   border: none;
-  cursor: pointer;
   color: var(--charcoal-muted);
-  padding: var(--space-1);
-  transition: color var(--duration-base);
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .close-btn:hover {
+  transform: scale(1.1);
   color: var(--deep-charcoal);
 }
 
-/* Tabs */
 .size-guide-tabs {
   display: flex;
-  gap: var(--space-2);
-  padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--taupe-light);
 }
 
 .tab {
-  padding: var(--space-2) var(--space-4);
-  background: transparent;
-  border: 1px solid var(--taupe-light);
-  border-radius: var(--radius-full);
-  font-family: var(--font-accent);
-  font-size: 0.9rem;
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--charcoal-muted);
   cursor: pointer;
-  transition: all var(--duration-base);
-}
-
-.tab:hover {
-  border-color: var(--rich-bronze);
-  color: var(--rich-bronze);
+  position: relative;
 }
 
 .tab.active {
-  background: var(--rich-bronze);
-  border-color: var(--rich-bronze);
-  color: white;
-}
-
-/* Content */
-.size-guide-content {
-  padding: var(--space-5);
-}
-
-.size-guide-content > h3 {
-  font-size: 1.3rem;
   color: var(--deep-charcoal);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--deep-charcoal);
+}
+
+.size-guide-content {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.size-guide-content h3 {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  font-weight: 700;
   margin-bottom: var(--space-4);
 }
 
-/* Table */
 .size-table-wrapper {
   overflow-x: auto;
-  margin-bottom: var(--space-5);
 }
 
 .size-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
 }
 
 .size-table th {
   text-align: left;
-  padding: var(--space-3);
-  background: var(--soft-cream);
-  font-weight: 600;
-  color: var(--deep-charcoal);
+  padding: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--charcoal-muted);
   border-bottom: 2px solid var(--taupe-light);
-  white-space: nowrap;
 }
 
 .size-table td {
-  padding: var(--space-3);
+  padding: 16px 12px;
+  font-size: 0.9rem;
+  color: var(--deep-charcoal);
   border-bottom: 1px solid var(--taupe-light);
-  color: var(--charcoal-muted);
 }
 
-.size-table tbody tr:hover {
-  background: var(--soft-cream);
-}
-
-/* Tips */
 .size-tips {
-  background: rgba(166, 124, 82, 0.05);
-  border-left: 3px solid var(--rich-bronze);
-  padding: var(--space-4);
-  margin-bottom: var(--space-5);
-  border-radius: var(--radius-sm);
+  background: var(--warm-white);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
 }
 
 .size-tips h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: 1rem;
-  color: var(--deep-charcoal);
-  margin-bottom: var(--space-2);
+  gap: 8px;
 }
 
 .size-tips ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .size-tips li {
+  font-size: 0.85rem;
+  color: #555;
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  padding: var(--space-1) 0;
-  font-size: 0.9rem;
-  color: var(--charcoal-muted);
+  align-items: center;
+  gap: 10px;
 }
 
 .size-tips svg {
-  color: var(--success);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* How to Measure */
-.how-to-measure {
-  background: var(--soft-cream);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-}
-
-.how-to-measure h4 {
-  font-size: 1.1rem;
   color: var(--deep-charcoal);
-  margin-bottom: var(--space-3);
+}
+
+/* How to measure */
+.how-to-measure h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-6);
 }
 
 .how-to-measure ol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
   list-style: none;
   padding: 0;
-  margin: 0;
-  counter-reset: measure-counter;
 }
 
 .how-to-measure li {
-  position: relative;
-  padding-left: 50px;
-  margin-bottom: var(--space-3);
-  counter-increment: measure-counter;
-}
-
-.how-to-measure li::before {
-  content: counter(measure-counter);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 36px;
-  height: 36px;
-  background: var(--deep-charcoal);
-  color: white;
-  border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.1rem;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .how-to-measure strong {
-  display: block;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--deep-charcoal);
-  margin-bottom: 4px;
 }
 
 .how-to-measure p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--charcoal-muted);
   line-height: 1.6;
 }
 
-/* Responsive */
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .size-guide-modal {
     max-height: 100vh;
-    height: 100%;
-    border-radius: 0;
   }
-
-  .size-guide-tabs {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-
-  .tab {
-    white-space: nowrap;
-  }
-
-  .size-table {
-    font-size: 0.8rem;
-  }
-
-  .size-table th,
-  .size-table td {
-    padding: var(--space-2);
+  .how-to-measure ol {
+    grid-template-columns: 1fr;
   }
 }

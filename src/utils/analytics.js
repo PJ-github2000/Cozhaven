@@ -20,7 +20,7 @@ export const trackEvent = (eventName, params = {}) => {
   }
   
   // Log in development for testing
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     console.log('📊 Analytics Event:', eventName, params);
   }
   
@@ -195,7 +195,7 @@ export const trackError = (errorDescription, errorType = 'JavaScript Error') => 
     fatal: false,
   });
   
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     console.error('❌ Error Tracked:', errorDescription);
   }
 };

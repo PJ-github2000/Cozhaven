@@ -19,7 +19,8 @@ function cartReducer(state, action) {
   let newState;
   switch (action.type) {
     case 'ADD_ITEM': {
-      const key = `${action.payload.id}-${action.payload.color}-${action.payload.size}`;
+      const { id, color, size, material } = action.payload;
+      const key = `${id}-${color || ''}-${size || ''}-${material || ''}`;
       const existing = state.find(item => item.key === key);
       if (existing) {
         newState = state.map(item =>
@@ -55,8 +56,8 @@ function cartReducer(state, action) {
 export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(cartReducer, [], loadCart);
 
-  const addItem = (product, color, size, quantity = 1) => {
-    dispatch({ type: 'ADD_ITEM', payload: { ...product, color, size, quantity } });
+  const addItem = (product, color, size, quantity = 1, material) => {
+    dispatch({ type: 'ADD_ITEM', payload: { ...product, color, size, quantity, material } });
   };
 
   const removeItem = (key) => dispatch({ type: 'REMOVE_ITEM', payload: key });

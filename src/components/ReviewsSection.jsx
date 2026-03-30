@@ -13,7 +13,7 @@ const MOCK_REVIEWS = [
     date: '2025-02-15',
     verified: true,
     helpful: 24,
-    photos: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80']
+    photos: ['https://atunus.com/wp-content/uploads/2025/04/Bubble-Sectional-Sofa-Comfort-3D-Knitted-Loveseats-2-3-Seater-Atunus-1.webp']
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const MOCK_REVIEWS = [
     date: '2025-02-05',
     verified: true,
     helpful: 12,
-    photos: ['https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400&q=80', 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&q=80']
+    photos: ['https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfort-Relaxation-125-Inch-Velvet-Corner-Sectionals-2-Seaters-Atunus-1.webp', 'https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Cozy-Velvet-L-Shaped-Sectionals-4-Seaters-Atunus-10.webp']
   },
   {
     id: 4,
