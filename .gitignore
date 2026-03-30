@@ -12,15 +12,38 @@ dist
 dist-ssr
 *.local
 
-# Environment variables (secrets)
-.env
-.env.local
-.env.production
-.env.*.local
-backend/.env
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
 
 # Database
 *.db
+
+# Local Scratch/Logs
+*.txt
+backend/test_results.txt
+push_result.txt
+tmp_content.txt
+cookies.txt
+.gemini/
+
+# Vite/Next.js
+.next/
+out/
+build/
+.vercel
+.turbo
+
+# Environment variables (secrets)
+.env*
+!.env.example
+backend/.env*
 
 # Editor directories and files
 .vscode/*
