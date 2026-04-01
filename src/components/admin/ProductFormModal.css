@@ -32,18 +32,110 @@
   box-shadow: var(--admin-shadow-lg);
   width: 100%;
   max-width: 800px;
-  max-height: 88vh;
-  overflow-y: auto;
+  height: 90vh;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.luxury-form-v2 { padding: 20px; }
-
-.form-sections {
+.luxury-form-v2 { 
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  background: white;
+}
+
+.modal-header {
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--admin-border);
+  background: white;
+  flex-shrink: 0;
+}
+
+.modal-title-group h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: var(--admin-text-faint);
+  margin: 2px 0 0 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: var(--admin-bg);
+  color: var(--admin-text);
+}
+
+.product-form-tabs {
+  display: flex;
   gap: 24px;
-  margin-bottom: 20px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--admin-border);
+  background: #fafafa;
+  flex-shrink: 0;
+}
+
+.form-tab-btn {
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.form-tab-btn:hover {
+  color: var(--admin-text);
+}
+
+.form-tab-btn.active {
+  color: var(--admin-accent);
+  font-weight: 600;
+}
+
+.form-tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--admin-accent);
+}
+
+.form-sections {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .form-section {
@@ -392,11 +484,14 @@
   color: #b91c1c;
 }
 
-/* Footer */
 .luxury-form-footer {
-  position: sticky; bottom: 0; background: #fff;
-  border-top: 1px solid var(--admin-border); padding: 10px 20px;
-  margin: 0 -20px -20px; display: flex; justify-content: space-between; align-items: center;
+  background: #fff;
+  border-top: 1px solid var(--admin-border);
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
 }
 .footer-status { flex: 1; }
 .saving-indicator {

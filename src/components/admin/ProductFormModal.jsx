@@ -633,7 +633,7 @@ export default function ProductFormModal({
           ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="product-form luxury-form-v2">
+        <form onSubmit={handleSubmit} className="luxury-form-v2">
           {errors.submit && <div className="form-error-banner">{errors.submit}</div>}
           
           <div className="form-sections">
