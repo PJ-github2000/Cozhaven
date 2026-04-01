@@ -62,7 +62,7 @@ export default function Home() {
     "@type": "FurnitureStore",
     "name": "Cozhaven",
     "url": "https://cozhaven.com",
-    "logo": "https://cozhaven.com/assets/logo-full.png",
+    "logo": "https://cozhaven.com/assets/logo-cozhaven.webp",
     "sameAs": [
       "https://www.facebook.com/cozhaven",
       "https://www.instagram.com/cozhaven",

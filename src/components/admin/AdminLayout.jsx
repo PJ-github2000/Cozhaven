@@ -97,7 +97,7 @@ export default function AdminLayout() {
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <div className="admin-sidebar__logo">
-          <span>COZHAVEN</span>
+          <img src="/assets/logo-cozhaven.webp" alt="Cozhaven Admin" className="admin-sidebar__logo-img" style={{ height: '24px', width: 'auto', marginBottom: '4px' }} />
           <span className="admin-tag">ADMIN</span>
         </div>
 

@@ -42,7 +42,7 @@ export default function Footer() {
         <div className="footer__grid">
           {/* Brand Column */}
           <div className="footer__col footer__col--brand">
-            <span className="footer__logo">COZHAVEN</span>
+            <img src="/assets/logo-cozhaven.webp" alt="Cozhaven" className="footer__logo-img" style={{ height: '32px', width: 'auto', marginBottom: 'var(--space-4)', display: 'block' }} />
             <p className="footer__tagline">Creating Comfort, Crafting Style.</p>
             <p className="footer__desc">Premium Canadian-made furniture for modern living. Every piece tells a story of quality craftsmanship.</p>
             <div className="footer__contact-mini">

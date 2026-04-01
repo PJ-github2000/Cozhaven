@@ -94,7 +94,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link to="/" className="header__logo" aria-label="Cozhaven Home">
-            <span className="header__logo-text">cozhaven</span>
+            <img src="/assets/logo-cozhaven.webp" alt="Cozhaven Logo" className="header__logo-img" style={{ height: '32px', width: 'auto', display: 'block' }} />
           </Link>
 
           {/* Desktop Nav */}
