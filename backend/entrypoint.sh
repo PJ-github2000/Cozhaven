@@ -87,8 +87,8 @@ END
 log "Database is reachable. Validating migrations..."
 python3 -m alembic upgrade head
 
-log "Synchronizing data and creating admin..."
-python3 -u seed_all.py
+log "Synchronizing automated schemas and seeding XML catalogs..."
+python3 -u startup.py --no-server
 
 log "Starting Production Server (Gunicorn)..."
 exec gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
