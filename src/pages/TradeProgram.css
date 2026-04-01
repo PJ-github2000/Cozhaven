@@ -1,0 +1,259 @@
+.trade-page {
+  background-color: var(--warm-white);
+  min-height: 100vh;
+}
+
+/* ═══ HERO SECTION ═══ */
+.trade-hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  padding: var(--space-8) 0;
+}
+
+.trade-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://atunusfurniture.com/wp-content/uploads/2025/06/Dark-Marble-Texture-1-1750239611.webp'); /* using dark marble aesthetic */
+  background-size: cover;
+  background-position: center;
+  background-color: var(--deep-charcoal);
+  z-index: -2;
+}
+
+.trade-hero__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(20, 18, 16, 0.7); /* Deep elegant overlay */
+  z-index: -1;
+}
+
+.trade-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.trade-hero__subtitle {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.trade-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+.trade-hero__desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ═══ CONTENT GRID ═══ */
+.trade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: flex-start;
+}
+
+@media (max-width: 991px) {
+  .trade-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+/* ═══ PERKS LIST ═══ */
+.trade-perks h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  margin-bottom: var(--space-3);
+  color: var(--deep-charcoal);
+  font-weight: 400;
+}
+
+.trade-perks__intro {
+  font-size: 1.1rem;
+  color: var(--charcoal-muted);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+.trade-perks__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.trade-perks__list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.trade-perks__list li .perk-icon {
+  color: var(--rich-bronze);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.trade-perks__list li strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+  color: var(--deep-charcoal);
+  font-weight: 600;
+}
+
+.trade-perks__list li p {
+  color: var(--charcoal-muted);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ═══ REGISTRATION FORM ═══ */
+.trade-form-wrapper {
+  background: white;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.trade-form-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  margin-bottom: var(--space-2);
+  color: var(--deep-charcoal);
+  font-weight: 400;
+}
+
+.trade-form-card > p {
+  color: var(--charcoal-muted);
+  margin-bottom: var(--space-5);
+  font-size: 0.95rem;
+}
+
+.trade-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--deep-charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-accent);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 14px 16px;
+  border: 1px solid rgba(42, 38, 34, 0.15);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--deep-charcoal);
+  background: var(--soft-cream);
+  transition: border-color 0.3s, background 0.3s;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--deep-charcoal);
+  background: white;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-wrapper svg {
+  position: absolute;
+  left: 14px;
+  color: var(--charcoal-muted);
+}
+
+.input-icon-wrapper input {
+  padding-left: 40px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: var(--space-2);
+}
+
+.form-checkbox input {
+  margin-top: 4px;
+  accent-color: var(--rich-bronze);
+}
+
+.form-checkbox label {
+  font-size: 0.85rem;
+  color: var(--charcoal-muted);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.trade-form .btn-full {
+  width: 100%;
+  padding: 16px;
+  margin-top: var(--space-4);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

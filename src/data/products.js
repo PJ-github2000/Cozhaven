@@ -1,15 +1,15 @@
 const PRODUCTS = []; // Cleared old Shopify products
 
 export const CATEGORIES = [
-  { id: "living-room", name: "Living Room Sets", image: "https://atunusfurniture.com/wp-content/uploads/2025/04/Bubble-Sectional-Sofa-Comfort-3D-Knitted-Loveseats-2-3-Seater-Atunus-1.webp", count: "35+" },
-  { id: "sectionals", name: "Sectionals", image: "https://atunusfurniture.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Comfort-Velvet-L-Shaped-Sectionals-5-Seaters-Atunus-10.webp", count: "48+" },
-  { id: "sofas", name: "Sofas", image: "https://atunusfurniture.com/wp-content/uploads/2025/04/Pixel-Classic-Modular-Sofa-Adaptable-Comfort-Linen-Sofa-Sets-4-Seaters-Atunus-1.webp", count: "112+" },
-  { id: "dining", name: "Dining Sets", image: "https://atunusfurniture.com/wp-content/uploads/2025/06/71-Inch-Modern-Dining-Table-1-1750239726.webp", count: "42+" },
-  { id: "bedroom", name: "Bedroom", image: "https://atunusfurniture.com/wp-content/uploads/2025/06/Deluxe-Wooden-Bed-Frame-with-Headboard-1-1750241739.webp", count: "38+" },
-  { id: "tables", name: "Tables & Coffee Tables", image: "https://atunusfurniture.com/wp-content/uploads/2025/06/Round-Coffee-Table-Outdoor-with-Metal-Frame-1-1750301532.webp", count: "28+" },
-  { id: "chairs", name: "Accent Chairs", image: "https://atunusfurniture.com/wp-content/uploads/2025/04/Caterpillar-Modern-Lazy-Sofa-Compact-Cozy-34-Inch-Teddy-Velvet-Single-Seat-1-Seaters-Atunus-10.webp", count: "72+" },
-  { id: "lighting", name: "Lighting", image: "https://atunusfurniture.com/wp-content/uploads/2025/06/6-Light-Rustic-Farmhouse-Chandelier-for-Dining-Room-1-1750236970.webp", count: "15+" },
-  { id: "vanity", name: "Vanity & Decor", image: "https://atunusfurniture.com/wp-content/uploads/2025/06/White-Fluted-Bedside-Table-with-2-Drawers-1-1750242405.webp", count: "25+" },
+  { id: "living-room", name: "Living Room Sets", image: "/assets/Living room Image 9.jpg", count: "35+" },
+  { id: "sectionals", name: "Sectionals", image: "/assets/Image 4 sectional.jpg", count: "48+" },
+  { id: "sofas", name: "Sofas", image: "/assets/Image 3 category modular.jpg", count: "112+" },
+  { id: "dining", name: "Dining Sets", image: "/assets/Image 6 dining.webp", count: "42+" },
+  { id: "bedroom", name: "Bedroom", image: "/assets/Image 5 Bed category.webp", count: "38+" },
+  { id: "tables", name: "Tables & Coffee Tables", image: "/assets/Image 7 coffee table.jpg", count: "28+" },
+  { id: "chairs", name: "Accent Chairs", image: "/assets/Image 8 Accent chair.png", count: "72+" },
+  { id: "lighting", name: "Lighting", image: "/assets/Others Image 4.jpg", count: "15+" },
+  { id: "vanity", name: "Vanity & Decor", image: "/assets/Others Image 3.jpg", count: "25+" },
 ];
 
 export const REVIEWS = [

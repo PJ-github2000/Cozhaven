@@ -235,7 +235,7 @@ async def get_public_page(slug: str, db: Session = Depends(get_db), locale: Opti
         raise HTTPException(status_code=404, detail="Page not found")
         
     # Localize data
-    data = PageResponse.from_orm(page).model_dump()
+    data = PageResponse.model_validate(page).model_dump()
     return localize_page(db, data, locale)
 
 @public_router.get("/blog", response_model=List[BlogPostResponse])
@@ -244,7 +244,7 @@ async def get_public_blog_posts(db: Session = Depends(get_db), locale: Optional[
     # Localize each
     result = []
     for p in posts:
-        data = BlogPostResponse.from_orm(p).model_dump()
+        data = BlogPostResponse.model_validate(p).model_dump()
         result.append(localize_blog_post(db, data, locale))
     return result
 
@@ -261,5 +261,5 @@ async def get_public_blog_post(slug: str, db: Session = Depends(get_db), locale:
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
         
-    data = BlogPostResponse.from_orm(post).model_dump()
+    data = BlogPostResponse.model_validate(post).model_dump()
     return localize_blog_post(db, data, locale)

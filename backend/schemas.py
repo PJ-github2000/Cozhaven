@@ -514,6 +514,9 @@ class PageResponse(PageBase):
     created_at: Optional[Any] = None
     updated_at: Optional[Any] = None
 
+    class Config:
+        from_attributes = True
+
 
 class BlogPostBase(BaseModel):
     title: str
@@ -537,6 +540,9 @@ class BlogPostResponse(BlogPostBase):
     created_at: Optional[Any] = None
     updated_at: Optional[Any] = None
 
+    class Config:
+        from_attributes = True
+
 
 class ContentBlockBase(BaseModel):
     name: str
@@ -548,6 +554,9 @@ class ContentBlockResponse(ContentBlockBase):
     id: int
     created_at: Optional[Any] = None
     updated_at: Optional[Any] = None
+
+    class Config:
+        from_attributes = True
 
 
 class BulkActionFilters(BaseModel):

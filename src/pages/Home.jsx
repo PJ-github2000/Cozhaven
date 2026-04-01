@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowDown, Star, ChevronLeft, ChevronRight, MapPin, Clock, Truck, Shield, Heart, Sparkles, Award, Users, Play, Pause, Quote } from 'lucide-react';
+import { ArrowRight, ArrowDown, Star, ChevronLeft, ChevronRight, MapPin, Clock, Truck, Shield, Heart, Sparkles, Award, Users, Play, Pause, Quote, Briefcase, CheckCircle2 } from 'lucide-react';
 import { CATEGORIES } from '../data/products';
 import { useProductsQuery } from '../context/ProductsContext';
 import ProductCard from '../components/ProductCard';
@@ -118,6 +118,7 @@ export default function Home() {
       <LifestyleVideo />
       <ReviewsSection />
       <StoreOpening />
+      <TradeProgramPromo />
       <InstagramFeed />
       <JournalPreview />
     </main>
@@ -326,7 +327,9 @@ function CategoriesSection() {
                 <div className="category-card__image">
                   <img src={cat.image} alt={cat.name} loading="lazy" />
                 </div>
-                <h3>{cat.name}</h3>
+                <div className="btn btn-outline category-card__btn">
+                  {cat.name} <ArrowRight size={16} />
+                </div>
               </Link>
             </motion.div>
           ))}
@@ -396,17 +399,34 @@ function CollectionSlider() {
   return (
     <section className="collection-slider">
       <div className="collection-slider__container">
-        <div className="section-header section-header--split" style={{ marginBottom: 'var(--space-6)' }}>
-          <div>
-            <span className="section-subtitle">Exclusively Handcrafted</span>
-            <AnimatedText
-              el="h2"
-              text="Canadian Made Series"
-              className="section-title"
-              style={{ marginBottom: 0 }}
-            />
-          </div>
-          <Link to="/shop" className="btn btn-ghost">
+        <div className="section-header section-header--split" style={{ marginBottom: 'var(--space-6)', alignItems: 'center' }}>
+          <h2
+            style={{ 
+              fontFamily: 'var(--font-display)', 
+              fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', 
+              fontWeight: 800, 
+              letterSpacing: '-0.02em', 
+              color: 'var(--deep-charcoal)',
+              margin: 0
+            }}
+          >
+            Canadian Made Series
+          </h2>
+          <Link 
+            to="/shop?cat=canadian" 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              fontFamily: 'var(--font-accent)',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              color: 'var(--deep-charcoal)',
+              textDecoration: 'none'
+            }}
+          >
             View All <ArrowRight size={16} />
           </Link>
         </div>
@@ -879,6 +899,61 @@ function StoreOpening() {
             </div>
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══ TRADE PROGRAM PROMO ═══ */
+function TradeProgramPromo() {
+  return (
+    <section className="trade-promo section-padding" style={{ background: 'var(--deep-charcoal)', color: 'white' }}>
+      <div className="container">
+        <div className="trade-promo__grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 'var(--space-8)', alignItems: 'center' }}>
+          
+          <motion.div 
+            className="trade-promo__content"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-subtitle" style={{ color: 'var(--rich-bronze)' }}>For Industry Professionals</span>
+            <AnimatedText el="h2" text="Cozhaven Trade Program" style={{ color: 'white', marginBottom: 'var(--space-4)' }} />
+            <p style={{ fontSize: '1.1rem', lineHeight: 1.6, opacity: 0.9, marginBottom: 'var(--space-6)', maxWidth: 500 }}>
+              Ordering for your client or business? Partner with us to unlock exclusive wholesale benefits tailored for interior designers, architects, contractors, and developers.
+            </p>
+            
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: 'var(--space-6)' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, fontSize: '1.05rem' }}>
+                <CheckCircle2 size={18} color="var(--rich-bronze)" /> Up to 30% Preferential Pricing
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, fontSize: '1.05rem' }}>
+                <CheckCircle2 size={18} color="var(--rich-bronze)" /> Dedicated Concierge Support
+              </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12, fontSize: '1.05rem' }}>
+                <CheckCircle2 size={18} color="var(--rich-bronze)" /> Tax Exemption Processing
+              </li>
+            </ul>
+
+            <Link to="/trade-program" className="btn btn-primary" style={{ background: 'white', color: 'var(--deep-charcoal)', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              Apply Now <Briefcase size={16} />
+            </Link>
+          </motion.div>
+
+          <motion.div 
+            className="trade-promo__visual"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden',aspectRatio: '4/3' }}
+          >
+            <img src="/assets/Others Image 5.jpg" alt="Trade Program Showcase" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+            <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(20, 18, 16, 0.2)' }} />
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ShoppingBag, Heart, Menu, X, ChevronDown, LogOut, LayoutDashboard, Download } from 'lucide-react';
+import { Search, User, ShoppingBag, Heart, Menu, X, ChevronDown, LogOut, LayoutDashboard, Briefcase, Download } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
@@ -136,6 +136,15 @@ export default function Header() {
               <Download size={15} />
               <span className="btn-label">2026 CATALOGUE</span>
             </button>
+            <Link
+              to="/trade-program"
+              className="header__action-btn header__catalogue-btn hide-mobile"
+              aria-label="Trade Program"
+              title="Join our Trade Program"
+            >
+              <Briefcase size={15} />
+              <span className="btn-label">TRADE PROGRAM</span>
+            </Link>
             <button className="header__action-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
               <Search size={20} />
             </button>

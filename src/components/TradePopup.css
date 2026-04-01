@@ -1,0 +1,216 @@
+.trade-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 18, 16, 0.85); /* Deep luxury overlay */
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    z-index: 9999;
+    animation: trade-fade-in 0.5s ease-out;
+}
+
+@keyframes trade-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.trade-popup-modal {
+    background: white;
+    width: 100%;
+    max-width: 900px; /* Wider for luxury side-by-side */
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    animation: trade-slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes trade-slide-up {
+    from { opacity: 0; transform: translateY(40px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.trade-popup-content {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    background: white;
+}
+
+@media (max-width: 768px) {
+    .trade-popup-modal { max-width: 480px; }
+    .trade-popup-content { grid-template-columns: 1fr; }
+}
+
+/* Close Button */
+.trade-popup-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--deep-charcoal);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.trade-popup-close:hover {
+    background: white;
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* Visual Left Side */
+.trade-popup-visual {
+    background: var(--deep-charcoal);
+    position: relative;
+    padding: var(--space-8) var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.trade-popup-cover {
+    position: relative;
+    color: white;
+    text-align: center;
+    z-index: 2;
+}
+
+.trade-popup-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(40px);
+    z-index: 0;
+}
+
+.trade-popup-brand {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.trade-popup-icon {
+    margin-bottom: var(--space-3);
+    stroke-width: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+.trade-popup-label {
+    font-family: var(--font-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+/* Text Right Side */
+.trade-popup-text {
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .trade-popup-visual { padding: var(--space-6); min-height: 200px; }
+    .trade-popup-cover { transform: scale(0.8); }
+    .trade-popup-text { padding: var(--space-6) var(--space-5); }
+}
+
+.trade-popup-badge {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rich-bronze);
+    margin-bottom: var(--space-3);
+}
+
+.trade-popup-text h3 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--deep-charcoal);
+    margin-bottom: var(--space-3);
+}
+
+.trade-popup-text p {
+    color: var(--charcoal-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-5);
+}
+
+/* Features List */
+.trade-popup-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trade-popup-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--deep-charcoal);
+    font-weight: 500;
+}
+
+/* CTA Button */
+.trade-popup-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--deep-charcoal);
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    font-family: var(--font-accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s;
+    margin-bottom: var(--space-3);
+    text-align: center;
+}
+
+.trade-popup-btn:hover {
+    background: black;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.trade-popup-footer {
+    font-size: 0.8rem;
+    color: var(--charcoal-muted);
+    text-align: center;
+    margin: 0;
+}

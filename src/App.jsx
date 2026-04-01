@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
 import ScrollToTop from './components/ScrollToTop';
+import TradePopup from './components/TradePopup';
 import CataloguePopup from './components/CataloguePopup';
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { ArrowUp } from 'lucide-react';
@@ -23,6 +24,7 @@ const Shop = lazy(() => import('./pages/Shop'));
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const CollectionDetail = lazy(() => import('./pages/CollectionDetail'));
 const DynamicPage = lazy(() => import('./pages/DynamicPage'));
+const TradeProgram = lazy(() => import('./pages/TradeProgram'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -142,12 +144,13 @@ function AppContent() {
       <ScrollProgress />
       {!isAdmin && <Header />}
       <ScrollToTop />
-      <CataloguePopup />
+      {!isAdmin && <TradePopup />}
       <ErrorBoundary>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/trade-program" element={<TradeProgram />} />
             <Route path="/pages/:slug" element={<DynamicPage />} />
             <Route path="/collections/:slug" element={<CollectionDetail />} />
             <Route path="/inspiration" element={<Inspiration />} />

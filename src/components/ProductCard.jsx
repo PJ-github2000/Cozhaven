@@ -79,7 +79,7 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
         {product.isCanadianMade && (
           <span className="badge badge-canadian">
-            🇨🇦 Made in Canada
+            🇨🇦 MADE IN CANADA
           </span>
         )}
         {product.badge && (
@@ -106,10 +106,6 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="product-card__rating">
           <Star size={12} fill="currentColor" />
           <span>{product.rating} ({product.reviews})</span>
-        </div>
-
-        <div className="product-card__financing">
-          As low as ${Math.floor(product.price / 24)}/mo with CozPay
         </div>
       </Link>
     </motion.div>
