@@ -10,11 +10,12 @@
 .status-tabs {
   display: flex;
   gap: 4px;
-  background: white;
+  background: var(--admin-card);
   padding: 4px;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--admin-radius);
+  border: 1px solid var(--admin-border);
   width: fit-content;
+  box-shadow: var(--admin-shadow-sm);
 }
 
 .admin-actions-bar {
@@ -39,17 +40,19 @@
 .admin-search-input {
   width: 100%;
   padding: 10px 12px 10px 40px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.08);
-  font-size: 0.85rem;
-  background: white;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border);
+  font-size: 13px;
+  background: var(--admin-bg);
   transition: all 0.2s;
+  font-family: var(--font-admin);
 }
 
 .admin-search-input:focus {
-  border-color: var(--rich-bronze);
-  box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.1);
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   outline: none;
+  background: var(--admin-card);
 }
 
 .search-icon {
@@ -73,31 +76,34 @@
 /* Spin animation moved to admin-common.css */
 
 .status-tab {
-  padding: 8px 16px;
+  padding: 6px 14px;
   border: none;
   background: none;
-  font-size: 0.85rem;
+  font-size: 13px;
   font-weight: 500;
-  color: #666;
-  border-radius: 8px;
+  color: var(--admin-text-muted);
+  border-radius: var(--admin-radius-sm);
   cursor: pointer;
   transition: all 0.2s;
+  font-family: var(--font-admin);
 }
 
 .status-tab:hover {
-  background: #fafafa;
-  color: var(--deep-charcoal);
+  background: var(--admin-bg);
+  color: var(--admin-text);
 }
 
 .status-tab.active {
-  background: var(--deep-charcoal);
+  background: var(--admin-primary);
   color: white;
+  box-shadow: var(--admin-shadow-sm);
 }
 
 /* ─── Table Cells ─── */
 .order-id {
-  font-family: var(--font-accent);
-  color: var(--deep-charcoal);
+  font-family: var(--font-admin);
+  font-weight: 600;
+  color: var(--admin-text);
 }
 
 .customer-cell {
@@ -106,21 +112,21 @@
 }
 
 .customer-cell .name {
-  font-size: 0.9rem;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .customer-cell .email {
-  font-size: 0.75rem;
-  color: #999;
+  font-size: 12px;
+  color: var(--admin-text-faint);
 }
 
 .date-cell {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 13px;
+  color: var(--admin-text-muted);
 }
 
 .total-cell {
@@ -130,13 +136,14 @@
 
 .total-cell .amount {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 13px;
 }
 
 .total-cell .method {
-  font-size: 0.75rem;
-  color: #999;
+  font-size: 11px;
+  color: var(--admin-text-faint);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ─── Status Selector ─── */
@@ -196,16 +203,18 @@
 }
 
 .admin-modal {
-  background: white;
-  border-radius: 16px;
+  background: var(--admin-card);
+  border-radius: var(--admin-radius);
   width: 100%;
   max-width: 900px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: var(--admin-shadow-lg);
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  border: 1px solid var(--admin-border);
+  font-family: var(--font-admin);
 }
 
 .modal-header {
@@ -255,8 +264,8 @@
 }
 
 .close-btn:hover {
-  background: #f5f5f5;
-  color: var(--deep-charcoal);
+  background: var(--admin-bg);
+  color: var(--admin-text);
 }
 
 .details-grid {
