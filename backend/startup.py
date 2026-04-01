@@ -22,6 +22,7 @@ from config import DATABASE_URL
 from database import engine, SessionLocal, init_db
 from models import Base, Product
 import sync_sitemap_v2
+import recreate_admin
 
 
 def get_db_type():
@@ -113,6 +114,10 @@ def main():
     if not run_migrations():
         print("❌ Aborting: migrations failed.")
         sys.exit(1)
+    
+    # Step 1.5: Validate Admin Account
+    print("🛡️ Verifying admin credentials...")
+    recreate_admin.recreate_admin()
     
     if args.migrate:
         print("\n✅ Migration-only mode complete.")
