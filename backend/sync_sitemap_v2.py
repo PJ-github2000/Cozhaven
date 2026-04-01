@@ -21,6 +21,10 @@ def slug_to_name(slug):
         parts = parts[:-1]
     # Join and capitalize
     name = ' '.join(parts).title()
+    # Clean branding artifacts
+    name = name.replace("Atunus Home", "").replace("Atunus", "").replace("Furniture", "").strip()
+    # Remove double spaces
+    name = ' '.join(name.split())
     return name
 
 def map_category(name):

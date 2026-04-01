@@ -23,6 +23,7 @@ from database import engine, SessionLocal, init_db
 from models import Base, Product
 import sync_sitemap_v2
 import recreate_admin
+import seed_testimonials
 
 
 def get_db_type():
@@ -71,9 +72,11 @@ def seed_products(force=False):
     print("🌱 Auto-seeding catalog natively from product-sitemap.xml...")
     try:
         sync_sitemap_v2.main()
+        print("💬 Seeding premium testimonials...")
+        seed_testimonials.seed_testimonials()
         return True
     except Exception as e:
-        print(f"❌ Sitemap seeding transaction failed: {e}")
+        print(f"❌ Transaction failed: {e}")
         return False
 
 
