@@ -34,14 +34,9 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 # ─── Database & Cache ───
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./cozhaven.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://localhost:5432/cozhaven")
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 UPLOAD_DIR = "uploads"
-
-# Normalize SQLite URL for SQLAlchemy
-if DATABASE_URL.startswith("sqlite"):
-    if ":///" not in DATABASE_URL:
-        DATABASE_URL = DATABASE_URL.replace("sqlite:", "sqlite:///")
 
 # Handle postgres:// vs postgresql:// (Heroku/Railway compatibility)
 if DATABASE_URL.startswith("postgres://"):

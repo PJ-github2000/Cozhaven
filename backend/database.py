@@ -10,8 +10,7 @@ from models import Base, Product, Variant, InventoryItem, ProductSEO
 from utils import generate_slug, generate_default_sku
 
 
-connect_args = {"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
-engine = create_engine(DATABASE_URL, connect_args=connect_args)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -40,10 +39,7 @@ def _ensure_product_columns() -> None:
     if "product_type" not in columns:
         statements.append("ALTER TABLE products ADD COLUMN product_type VARCHAR DEFAULT 'simple'")
     if "updated_at" not in columns:
-        if engine.dialect.name == "sqlite":
-            statements.append("ALTER TABLE products ADD COLUMN updated_at DATETIME")
-        else:
-            statements.append("ALTER TABLE products ADD COLUMN updated_at TIMESTAMP DEFAULT NOW()")
+        statements.append("ALTER TABLE products ADD COLUMN updated_at TIMESTAMP DEFAULT NOW()")
 
     with engine.begin() as connection:
         for statement in statements:
@@ -51,10 +47,7 @@ def _ensure_product_columns() -> None:
         if "slug" not in columns:
             connection.execute(text("CREATE UNIQUE INDEX IF NOT EXISTS ix_products_slug ON products (slug)"))
         if "updated_at" not in columns:
-            if engine.dialect.name == "sqlite":
-                connection.execute(text("UPDATE products SET updated_at = CURRENT_TIMESTAMP WHERE updated_at IS NULL"))
-            else:
-                connection.execute(text("UPDATE products SET updated_at = NOW() WHERE updated_at IS NULL"))
+            connection.execute(text("UPDATE products SET updated_at = NOW() WHERE updated_at IS NULL"))
 
 
 def _backfill_catalog_foundation() -> None:

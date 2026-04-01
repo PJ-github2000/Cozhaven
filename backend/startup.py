@@ -1,7 +1,7 @@
 """
 Cozhaven — Automated Startup Script
 Handles database migration, seeding, and server launch.
-Works with both SQLite (local) and PostgreSQL (production).
+Works exclusively with PostgreSQL (production/local).
 
 Usage:
   python startup.py              # Default: migrate + seed if empty + start server
@@ -25,9 +25,7 @@ from models import Base, Product
 
 def get_db_type():
     """Detect database type from URL."""
-    if "postgresql" in DATABASE_URL or "postgres" in DATABASE_URL:
-        return "postgresql"
-    return "sqlite"
+    return "postgresql"
 
 
 def run_migrations():
