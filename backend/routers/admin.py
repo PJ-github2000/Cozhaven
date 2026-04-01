@@ -5,7 +5,7 @@ import json
 import os
 import uuid
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, List, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Request, UploadFile
 from sqlalchemy import String, and_, desc, func, text
@@ -16,6 +16,7 @@ from config import UPLOAD_DIR
 from database import get_db
 from logger import get_logger
 from models import (
+    AdminApprovalRequest,
     AdminAuditLog,
     BackgroundJob,
     InventoryAdjustment,
@@ -36,6 +37,7 @@ from schemas import (
     AdminApprovalRequestResponse,
     ApprovalDecisionInput,
     AdminAuditLogResponse,
+    BulkActionFilters,
     BulkActionRequest,
     BulkPriceUpdate,
     BulkStatusUpdate,

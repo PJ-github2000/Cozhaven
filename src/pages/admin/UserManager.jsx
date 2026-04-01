@@ -9,7 +9,7 @@ import {
   Check,
   ChevronDown
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import { useAuth } from '../../context/AuthContext';
 import './UserManager.css';
 

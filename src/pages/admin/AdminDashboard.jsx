@@ -8,7 +8,7 @@ import {
   ArrowDownRight,
   Clock
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import './AdminDashboard.css';
 import '../../styles/AdminPolish.css';
 

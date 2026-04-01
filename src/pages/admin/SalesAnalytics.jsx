@@ -7,7 +7,7 @@ import {
   TrendingUp, TrendingDown, DollarSign, ShoppingBag, 
   Users, Calendar, RefreshCw, Download, FileText
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import './SalesAnalytics.css';
 
 const COLORS = ['#A67C52', '#2C2C2C', '#5F6368', '#EBEBEB', '#D4AF37'];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, Trash2, X } from 'lucide-react';
-import { API_BASE } from '../../services/apiConfig';
+import { API_BASE } from '../../services/apiConfig.js';
 import './ProductFormModal.css';
 
 const createVariant = (position = 1) => ({

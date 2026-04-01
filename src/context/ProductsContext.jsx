@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { API_BASE } from '../services/apiConfig';
+import { API_BASE } from '../services/apiConfig.js';
 
 const ProductsContext = createContext();
 

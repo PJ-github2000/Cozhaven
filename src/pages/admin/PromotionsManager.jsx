@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, RefreshCw, Tag, Trash2 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import '../../styles/AdminPolish.css';

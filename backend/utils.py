@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime, timezone
 from typing import Any, Optional
+from sqlalchemy.orm import Session
 
 
 def parse_specs(specs_str: Optional[str]):

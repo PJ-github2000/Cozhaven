@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Minus, Plus, ChevronDown, Star, Share2, Truck, Shield, RotateCcw, Ruler, ShoppingCart, CreditCard, Calendar, MessageCircle, Check, ChevronLeft, ChevronRight, Package, Sparkles, Layers } from 'lucide-react';
 import { useProduct } from '../context/ProductsContext';
-import { API_BASE } from '../services/apiConfig';
+import { API_BASE } from '../services/apiConfig.js';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useToast } from '../context/ToastContext';
@@ -15,7 +15,7 @@ import UrgencyIndicators from '../components/UrgencyIndicators';
 import SizeGuide from '../components/SizeGuide';
 import Breadcrumbs from '../components/Breadcrumbs';
 import RecommendationRow from '../components/RecommendationRow';
-import { discoveryApi } from '../services/discoveryApi';
+import { discoveryApi } from '../services/discoveryApi.js';
 import { CATEGORIES } from '../data/products';
 import './ProductDetail.css';
 

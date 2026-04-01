@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Check, RefreshCw, ShieldCheck, X } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import { useToast } from '../../context/ToastContext';
 import '../../styles/AdminPolish.css';
 import './ApprovalsManager.css';

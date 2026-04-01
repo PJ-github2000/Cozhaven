@@ -4,7 +4,7 @@ import {
   Eye, Globe, Lock, MoreVertical, X, Check,
   Image, User, Calendar, Tag
 } from 'lucide-react';
-import { cmsApi } from '../../services/cmsApi';
+import { cmsApi } from '../../services/cmsApi.js';
 import { useToast } from '../../context/ToastContext';
 import './ProductManager.css'; // Reusing some table styles
 import './ProductManager.css'; 

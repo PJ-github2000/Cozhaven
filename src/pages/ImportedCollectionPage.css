@@ -243,4 +243,15 @@
   .imported-grid {
     grid-template-columns: 1fr;
   }
+  
+  .imported-toolbar {
+    flex-direction: column;
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  
+  .search-box, .filter-box {
+    width: 100%;
+    min-width: unset;
+  }
 }

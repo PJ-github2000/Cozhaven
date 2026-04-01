@@ -1,4 +1,4 @@
-import { apiFetch } from './apiConfig';
+import { apiFetch } from './apiConfig.js';
 
 export const cmsApi = {
   // Pages

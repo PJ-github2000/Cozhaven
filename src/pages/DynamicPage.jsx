@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { cmsApi } from '../services/cmsApi';
+import { cmsApi } from '../services/cmsApi.js';
 import { motion } from 'framer-motion';
 
 export default function DynamicPage() {

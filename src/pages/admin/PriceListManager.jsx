@@ -4,7 +4,7 @@ import {
   Eye, Globe, Lock, MoreVertical, X, Check,
   List, Package, UserCheck
 } from 'lucide-react';
-import { merchandisingApi } from '../../services/merchandisingApi';
+import { merchandisingApi } from '../../services/merchandisingApi.js';
 import { useToast } from '../../context/ToastContext';
 import './ProductManager.css'; 
 import '../../styles/AdminPolish.css';

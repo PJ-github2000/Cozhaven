@@ -5,7 +5,7 @@ import {
   Tag, ChevronDown, Printer, FileText, LayoutGrid, List as ListIcon,
   ShoppingBag, DollarSign, Edit2
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import ProductFormModal from '../../components/admin/ProductFormModal';
 import BarcodePrint from '../../components/admin/BarcodePrint';
 import './ProductManager.css';

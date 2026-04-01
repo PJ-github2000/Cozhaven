@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { discoveryApi } from '../services/discoveryApi';
+import { discoveryApi } from '../services/discoveryApi.js';
 import ProductCard from './ProductCard';
 import './RecommendationRow.css';
 import { Sparkles, TrendingUp } from 'lucide-react';

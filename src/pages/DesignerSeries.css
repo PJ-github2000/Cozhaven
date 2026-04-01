@@ -295,8 +295,16 @@
 
 @media (max-width: 768px) {
     .designer-toolbar {
+        flex-direction: column;
         padding: var(--space-4);
         margin: 0 var(--space-4);
         margin-top: calc(-1 * var(--space-6));
+        gap: 12px;
+    }
+
+    .search-wrapper,
+    .filter-wrapper {
+        width: 100%;
+        min-width: unset;
     }
 }

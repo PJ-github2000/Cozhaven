@@ -11,10 +11,10 @@ export default function CataloguePopup() {
         const hasSeenPopup = sessionStorage.getItem('cozhaven_catalogue_seen');
 
         if (!hasSeenPopup) {
-            // Show popup after 3 seconds of browsing
+            // Show popup after 6 seconds of browsing
             const timer = setTimeout(() => {
                 setIsOpen(true);
-            }, 3000);
+            }, 6000);
             return () => clearTimeout(timer);
         }
     }, []);

@@ -24,7 +24,7 @@ import '../../styles/admin-common.css';
 import '../../styles/AdminPolish.css';
 import './AdminLayout.css';
 import { useAuth } from '../../context/AuthContext';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 
 export default function AdminLayout() {
   const { user, logout: authLogout } = useAuth();

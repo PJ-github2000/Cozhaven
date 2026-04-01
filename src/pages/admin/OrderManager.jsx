@@ -15,7 +15,7 @@ import {
   Users,
   Download
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import ProductFormModal from '../../components/admin/ProductFormModal';
 import OrderInvoice from '../../components/OrderInvoice';
 import './OrderManager.css';

@@ -4,7 +4,7 @@ import {
   Calendar, Zap, Clock, MoreVertical, X, Check,
   Activity, ArrowRight, BarChart2
 } from 'lucide-react';
-import { merchandisingApi } from '../../services/merchandisingApi';
+import { merchandisingApi } from '../../services/merchandisingApi.js';
 import { useToast } from '../../context/ToastContext';
 import './ProductManager.css'; // Reusing some table styles
 import '../../styles/AdminPolish.css';

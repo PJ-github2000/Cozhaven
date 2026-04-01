@@ -2,9 +2,10 @@
 Cozhaven Pydantic schemas.
 """
 import re
+from datetime import datetime
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class UserCreate(BaseModel):

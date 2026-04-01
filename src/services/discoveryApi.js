@@ -1,4 +1,4 @@
-import { API_BASE } from './apiConfig';
+import { API_BASE } from './apiConfig.js';
 
 const DISCOVERY_BASE = `${API_BASE}/discovery`;
 

@@ -1,4 +1,4 @@
-import { API_BASE, apiFetch, handleResponse } from './apiConfig';
+import { API_BASE, apiFetch, handleResponse } from './apiConfig.js';
 
 export const adminApi = {
   // Stats & Analytics

@@ -124,60 +124,36 @@ export default function Home() {
   );
 }
 
-/* ═══ HERO CAROUSEL ═══ */
+/* ═══ HERO SECTION ═══ */
 function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const ref = useRef(null);
-
-  const slides = [
-    {
-      id: 1,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfort-Relaxation-125-Inch-Velvet-Corner-Sectionals-2-Seaters-Atunus-1.webp",
-      title: "Elevate Your Space, Elevate Your Life",
-      desc: "Discover premium furniture that blends Canadian craftsmanship with contemporary design. Every piece tells a story of quality, comfort, and conscious creation.",
-      badge: "Handcrafted in Canada"
-    },
-    {
-      id: 2,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Bubble-Sectional-Sofa-Comfort-3D-Knitted-Loveseats-2-3-Seater-Atunus-1.webp",
-      title: "Modern Elegance, Timeless Comfort",
-      desc: "Experience our new collection designed for the modern home. Sustainable materials meeting unparalleled aesthetics.",
-      badge: "New Arrival"
-    },
-    {
-      id: 3,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Pixel-Classic-Modular-Sofa-Adaptable-Comfort-Linen-Sofa-Sets-4-Seaters-Atunus-1.webp",
-      title: "Designed for Living, Built to Last",
-      desc: "Invest in pieces that grow with you. Our solid wood construction ensures durability for generations.",
-      badge: "Built to Last"
-    }
-  ];
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    if (videoRef.current) {
+      // Force muted and call play explicitly for better browser compatibility
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(error => {
+        console.error("Hero video autoplay failed:", error);
+      });
+    }
+  }, []);
 
   return (
-    <section className="hero-carousel" ref={ref}>
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={currentSlide}
-          className="hero-carousel__bg"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-        >
-          <img src={slides[currentSlide].image} alt="Cozhaven luxury furniture" />
-          <div className="hero-carousel__gradient" />
-        </motion.div>
-      </AnimatePresence>
+    <section className="hero-carousel">
+      <div className="hero-carousel__bg">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="hero-carousel__video"
+          poster="/assets/Others Image 5.jpg"
+          src="https://atunusfurniture.com/wp-content/uploads/2025/08/121_Sectional_Sofas_Set_Video.mp4"
+        />
+        <div className="hero-carousel__gradient" />
+      </div>
 
       <div className="hero-carousel__beams">
         <div className="hero-carousel__beam hero-carousel__beam--1" />
@@ -187,30 +163,35 @@ function HeroSection() {
 
       <div className="hero-carousel__content container">
         <div className="hero-carousel__main">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              className="hero-carousel__text-wrapper"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <h1 className="hero-carousel__title">
-                {slides[currentSlide].title.split(', ').map((text, i) => (
-                  <span key={i}>{text}{i === 0 ? ',' : ''}<br /></span>
-                ))}
-              </h1>
+          <motion.div
+            className="hero-carousel__text-wrapper"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="hero-carousel__badge">Handcrafted in Canada</span>
+            <h1 className="hero-carousel__title">
+              Elevate Your Space,<br />
+              Elevate Your Life
+            </h1>
+            <p className="hero-carousel__desc">
+              Discover premium furniture that blends Canadian craftsmanship with contemporary design. 
+              Every piece tells a story of quality, comfort, and conscious creation.
+            </p>
 
-              <div className="hero-carousel__actions" style={{ justifyContent: 'flex-start' }}>
-                <Magnetic>
-                  <Link to="/shop" className="btn btn-primary btn-large">
-                    Shop Collection
-                  </Link>
-                </Magnetic>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+            <div className="hero-carousel__actions" style={{ justifyContent: 'flex-start' }}>
+              <Magnetic>
+                <Link to="/shop" className="btn btn-primary btn-large">
+                  Shop Collection
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link to="/about" className="btn btn-secondary btn-large">
+                  Our Story
+                </Link>
+              </Magnetic>
+            </div>
+          </motion.div>
         </div>
 
         <div className="hero-carousel__bottom">
@@ -227,27 +208,6 @@ function HeroSection() {
               <Heart size={16} />
               <span>10K+ Families</span>
             </div>
-          </div>
-
-          <div className="hero-carousel__controls">
-            <button className="hero-carousel__nav-btn" onClick={prevSlide} aria-label="Previous slide">
-              <ChevronLeft size={24} />
-            </button>
-
-            <div className="hero-carousel__indicators">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  className={`hero-carousel__dot ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => setCurrentSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <button className="hero-carousel__nav-btn" onClick={nextSlide} aria-label="Next slide">
-              <ChevronRight size={24} />
-            </button>
           </div>
         </div>
       </div>
@@ -294,17 +254,17 @@ function TrustBar() {
 /* ═══ PROMO CARDS ═══ */
 function PromoCards() {
   const cards = [
-    { title: "Best Sellers", image: "https://shopcozey.com/cdn/shop/files/Best_Sellers_HP_Tile-Bckg_ENG.png?v=1711656860", link: "/shop?sort=best-selling" },
-    { title: "New Arrivals", image: "https://shopcozey.com/cdn/shop/files/New_Arrivals_HP_Tile-Bckg_ENG.png?v=1711656859", link: "/shop?sort=new-arrivals" },
-    { title: "Bundle & Save", image: "https://shopcozey.com/cdn/shop/files/Bundle___Save_HP_Tile-Bckg_ENG.png?v=1711656860", link: "/shop?bundle=true" }
+    { title: "Best Sellers", image: "/assets/Best seller.webp", link: "/shop?sort=best-selling" },
+    { title: "New Arrivals", image: "/assets/Others Image 1.jpg", link: "/shop?sort=new-arrivals" },
+    { title: "Bundle & Save", image: "/assets/Others Image 2.jpg", link: "/shop?bundle=true" }
   ];
 
   /* Let's fallback to existing images if cozey links break, but these match perfectly to the screenshot. 
      Using some placeholder aesthetic images to match. */
   const backupCards = [
-    { title: "Best Sellers", image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfort-Versatility-102-Inch-Velvet-Chaise-Sectionals-3-Seaters-Atunus-10.webp", link: "/shop?sort=best-selling" },
-    { title: "New Arrivals", image: "https://atunus.com/wp-content/uploads/2025/04/Pixel-Classic-Modular-Sofa-Love-Seater-Black-Modular-Sofa-With-Armrests-Atunus-1.webp", link: "/shop?sort=new-arrivals" },
-    { title: "Bundle & Save", image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Cozy-Velvet-L-Shaped-Sectionals-4-Seaters-Atunus-10.webp", link: "/shop?bundle=true" }
+    { title: "Best Sellers", image: "/assets/Best seller.webp", link: "/shop?sort=best-selling" },
+    { title: "New Arrivals", image: "/assets/Others Image 6.png", link: "/shop?sort=new-arrivals" },
+    { title: "Bundle & Save", image: "/assets/Others Image 7.jpg", link: "/shop?bundle=true" }
   ];
 
   return (
@@ -339,14 +299,14 @@ function PromoCards() {
 /* ═══ CATEGORIES ═══ */
 function CategoriesSection() {
   const cozeyCategories = [
-    { id: "modular", name: "Modular", image: "https://atunus.com/wp-content/uploads/2025/04/Pixel-Classic-Modular-Sofa-Modular-Comfort-104-Inch-Linen-Chaise-Sectionals-3-Seaters-Atunus-1.webp" },
-    { id: "sectionals", name: "Sectional Sofas", image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Comfort-Velvet-L-Shaped-Sectionals-5-Seaters-Atunus-10.webp" },
-    { id: "chairs", name: "Accent Chairs", image: "https://atunus.com/wp-content/uploads/2025/04/Caterpillar-Modern-Lazy-Sofa-Compact-Cozy-34-Inch-Teddy-Velvet-Single-Seat-1-Seaters-Atunus-10.webp" },
-    { id: "dining", name: "Dining", image: "https://atunus.com/wp-content/uploads/2025/06/71-Inch-Modern-Dining-Table-1-1750239726.webp" },
-    { id: "bedroom", name: "Bedroom", image: "https://atunus.com/wp-content/uploads/2025/06/Deluxe-Wooden-Bed-Frame-with-Headboard-1-1750241739.webp" },
-    { id: "coffee-tables", name: "Coffee Tables", image: "https://atunus.com/wp-content/uploads/2025/06/Round-Coffee-Table-Outdoor-with-Metal-Frame-1-1750301532.webp" },
-    { id: "living", name: "Living Room", image: "https://atunus.com/wp-content/uploads/2025/04/Bubble-Sectional-Sofa-Comfort-3D-Knitted-Loveseats-2-3-Seater-Atunus-1.webp" },
-    { id: "vanity", name: "Vanity Dressers", image: "https://atunus.com/wp-content/uploads/2025/06/White-Fluted-Bedside-Table-with-2-Drawers-1-1750242405.webp" },
+    { id: "modular", name: "Modular", image: "/assets/Image 3 category modular.jpg" },
+    { id: "sectionals", name: "Sectional Sofas", image: "/assets/Image 4 sectional.jpg" },
+    { id: "chairs", name: "Accent Chairs", image: "/assets/Image 8 Accent chair.png" },
+    { id: "dining", name: "Dining", image: "/assets/Image 6 dining.webp" },
+    { id: "bedroom", name: "Bedroom", image: "/assets/Image 5 Bed category.webp" },
+    { id: "coffee-tables", name: "Coffee Tables", image: "/assets/Image 7 coffee table.jpg" },
+    { id: "living", name: "Living Room", image: "/assets/Living room Image 9.jpg" },
+    { id: "vanity", name: "Vanity Dressers", image: "/assets/Others Image 3.jpg" },
   ];
 
   return (
@@ -380,41 +340,56 @@ function CategoriesSection() {
 function CollectionSlider() {
   const swiperRef = useRef(null);
 
-  const stantonProducts = [
+  const canadianMadeProducts = [
     {
-      id: "s1",
-      name: "Stanton II Arm Chaise (Custom)",
-      price: 1700,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfort-Adjustable-102-Inch-Velvet-Loveseats-2-Seaters-Atunus-10.webp",
-      isCanadianMade: true
+      id: "hamilton",
+      name: "Hamilton Series Sectional",
+      price: 4200,
+      image: "/assets/hamilton-refined.png",
+      isCanadianMade: true,
+      rating: 4.9,
+      reviews: 128,
+      description: "Our signature Canadian-made modular sectional, blending timeless comfort with modern aesthetics."
     },
     {
-      id: "s2",
-      name: "Stanton II 2 x 2 Sectional (Custom)",
-      price: 4700,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfort-Versatility-102-Inch-Velvet-Chaise-Sectionals-3-Seaters-Atunus-10.webp",
-      isCanadianMade: true
+      id: "paris",
+      name: "Paris Series Sofa",
+      price: 2800,
+      image: "/assets/Canadian made sofa type 2.jpeg",
+      isCanadianMade: true,
+      rating: 4.8,
+      reviews: 86,
+      description: "Elegant and sophisticated, the Paris series brings refined Parisian style to your living space."
     },
     {
-      id: "s3",
-      name: "Stanton II 2 x 3 Sectional (Custom)",
-      price: 5070,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Cozy-Velvet-L-Shaped-Sectionals-4-Seaters-Atunus-10.webp",
-      isCanadianMade: true
+      id: "eglington",
+      name: "Eglington Series Sectional",
+      price: 3500,
+      image: "/assets/Canadian made type 3 sectional.jpeg",
+      isCanadianMade: true,
+      rating: 4.9,
+      reviews: 94,
+      description: "A versatile, clean-lined sectional designed for modern urban living and ultimate comfort."
     },
     {
-      id: "s4",
-      name: "Stanton II XL Sectional (Custom)",
-      price: 6240,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Adjustable-Comfort-Velvet-L-Shaped-Sectionals-5-Seaters-Atunus-10.webp",
-      isCanadianMade: true
+      id: "alberta",
+      name: "Alberta Series (Bellini Type)",
+      price: 4800,
+      image: "/assets/alberta-refined.png",
+      isCanadianMade: true,
+      rating: 5.0,
+      reviews: 42,
+      description: "Inspired by iconic Italian design, handcrafted in Canada with premium pebbled boucle fabric."
     },
     {
-      id: "s5",
-      name: "Stanton II Corner Sectional (Custom)",
-      price: 5400,
-      image: "https://atunus.com/wp-content/uploads/2025/04/Sky-Cloud-Deluxe-Adjustable-Sectional-Sofa-Comfortable-Relaxation-Velvet-Sleepers-4-Seaters-Atunus-10.webp",
-      isCanadianMade: true
+      id: "ottawa",
+      name: "Ottawa Series Minimalist",
+      price: 2500,
+      image: "/assets/ottawa-refined.png",
+      isCanadianMade: true,
+      rating: 4.8,
+      reviews: 112,
+      description: "Understated elegance with a slim profile and beautiful light oak accents."
     },
   ];
 
@@ -423,10 +398,10 @@ function CollectionSlider() {
       <div className="collection-slider__container">
         <div className="section-header section-header--split" style={{ marginBottom: 'var(--space-6)' }}>
           <div>
-            <span className="section-subtitle">Highest Priority</span>
+            <span className="section-subtitle">Exclusively Handcrafted</span>
             <AnimatedText
               el="h2"
-              text="Canadian Made Collection"
+              text="Canadian Made Series"
               className="section-title"
               style={{ marginBottom: 0 }}
             />
@@ -457,20 +432,9 @@ function CollectionSlider() {
               1280: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {stantonProducts.map((p) => (
+            {canadianMadeProducts.map((p, i) => (
               <SwiperSlide key={p.id}>
-                <div className="collection-slider__item">
-                  <div className="collection-slider__image-container">
-                    <img src={p.image} alt={p.name} loading="lazy" />
-                    {p.isCanadianMade && (
-                      <span className="collection-slider__badge">🇨🇦 Canadian Made</span>
-                    )}
-                  </div>
-                  <div className="collection-slider__info">
-                    <h3>{p.name}</h3>
-                    <p>From ${p.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-                  </div>
-                </div>
+                <ProductCard product={p} index={i} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -500,10 +464,10 @@ function FeaturedProducts() {
       <div className="container">
         <div className="section-header section-header--split">
           <div>
-            <span className="section-subtitle">Highest Priority</span>
+            <span className="section-subtitle">Curated Selection</span>
             <AnimatedText
               el="h2"
-              text="Canadian Made Collection"
+              text="Latest Collections"
               className="section-title"
               style={{ marginBottom: 0 }}
             />
@@ -725,7 +689,7 @@ function LifestyleVideo() {
           </div>
           <div className="lifestyle__visual">
             <div className="lifestyle__video-wrapper">
-              <img src="https://atunus.com/wp-content/uploads/2025/06/Finding-Beauty-in-Simplicity-Wabi-Sabi-Design-for-Reflective-Business-Settings-01-1749607323.webp" alt="Cozhaven craftsmanship" loading="lazy" />
+              <img src="/assets/Others Image 4.jpg" alt="Cozhaven craftsmanship" loading="lazy" />
               <div className="lifestyle__play-btn">
                 <Play size={28} fill="white" />
               </div>
@@ -892,7 +856,7 @@ function StoreOpening() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="store-opening__image">
-            <img src="/assets/showroom-bg.png" alt="Cozhaven Mississauga Showroom" />
+            <img src="/assets/Others image 8.jpg" alt="Cozhaven Mississauga Showroom" />
             <div className="store-opening__overlay" />
           </div>
           <div className="store-opening__content">

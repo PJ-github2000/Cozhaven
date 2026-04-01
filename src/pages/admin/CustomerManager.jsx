@@ -15,7 +15,7 @@ import {
   Calendar,
   Search
 } from 'lucide-react';
-import { adminApi } from '../../services/adminApi';
+import { adminApi } from '../../services/adminApi.js';
 import './CustomerManager.css';
 
 export default function CustomerManager() {

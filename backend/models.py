@@ -98,7 +98,7 @@ class Product(Base):
     variants = relationship("Variant", back_populates="product", cascade="all, delete-orphan")
     seo = relationship("ProductSEO", back_populates="product", uselist=False, cascade="all, delete-orphan")
     scheduled_prices = relationship("ScheduledPrice", back_populates="product", cascade="all, delete-orphan")
-    related_links = relationship("RelatedProduct", foreign_keys=[RelatedProduct.product_id], back_populates="product", cascade="all, delete-orphan")
+    related_links = relationship("RelatedProduct", foreign_keys="[RelatedProduct.product_id]", back_populates="product", cascade="all, delete-orphan")
     recent_views = relationship("UserRecentView", backref="product", cascade="all, delete-orphan")
 
 

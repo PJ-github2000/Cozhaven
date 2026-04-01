@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { adminApi } from '../services/adminApi';
-import { useToast } from '../context/ToastContext';
+import { adminApi } from '../../services/adminApi.js';
+import { useToast } from '../../context/ToastContext.jsx';
 import { Globe, Save, X, RefreshCw } from 'lucide-react';
 
 /**

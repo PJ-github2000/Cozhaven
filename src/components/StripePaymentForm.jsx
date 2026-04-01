@@ -7,7 +7,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import { Shield, AlertCircle, Loader2 } from "lucide-react";
-import { STRIPE_PUBLISHABLE_KEY, API_BASE } from "../services/apiConfig";
+import { STRIPE_PUBLISHABLE_KEY, API_BASE } from "../services/apiConfig.js";
 
 // Load Stripe with env var key
 const stripePromise = STRIPE_PUBLISHABLE_KEY

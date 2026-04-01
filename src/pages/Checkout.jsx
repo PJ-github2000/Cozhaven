@@ -5,7 +5,7 @@ import { CreditCard, Truck, Shield, Check, ArrowLeft, Lock } from 'lucide-react'
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { API_BASE, getAuthHeaders } from '../services/apiConfig';
+import { API_BASE, getAuthHeaders } from '../services/apiConfig.js';
 import StripePaymentWrapper from '../components/StripePaymentForm';
 import './Checkout.css';
 
