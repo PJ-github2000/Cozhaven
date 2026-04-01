@@ -10,10 +10,10 @@
 
 /* Sidebar */
 .admin-sidebar {
-  width: 240px;
-  background: #fff;
+  width: 250px;
+  background: var(--admin-bg);
   border-right: 1px solid var(--admin-border);
-  padding: 16px 12px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -22,6 +22,7 @@
   top: 0;
   z-index: 100;
   overflow-y: auto;
+  font-family: var(--font-admin);
 }
 
 .admin-sidebar__logo {
@@ -56,8 +57,8 @@
 .admin-nav__link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px 10px;
+  gap: 12px;
+  padding: 8px 12px;
   color: var(--admin-text-muted);
   font-size: 13px;
   font-weight: 500;
@@ -72,8 +73,8 @@
 }
 
 .admin-nav__link svg { width: 16px; height: 16px; }
-.admin-nav__link:hover { background: var(--admin-bg); color: var(--admin-text); }
-.admin-nav__link.active { background: var(--admin-primary); color: #fff; }
+.admin-nav__link:hover { background: #e5e7eb; color: var(--admin-text); }
+.admin-nav__link.active { background: var(--admin-primary); color: #fff; box-shadow: var(--admin-shadow-sm); }
 .admin-nav__link.logout { color: var(--admin-text-faint); }
 .admin-nav__link.logout:hover { color: var(--admin-danger); background: #FEF2F2; }
 
@@ -88,18 +89,21 @@
 
 /* Header */
 .admin-header {
-  height: 48px;
-  background: #fff;
+  height: 56px;
+  background: var(--admin-card);
   border-bottom: 1px solid var(--admin-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 24px;
   position: fixed;
   top: 0;
   right: 0;
-  left: 240px;
+  left: 250px;
   z-index: 99;
+  font-family: var(--font-admin);
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .admin-header__left {
@@ -250,13 +254,15 @@
 /* Main */
 .admin-main {
   flex: 1;
-  margin-left: 240px;
-  padding-top: 48px;
+  margin-left: 250px;
+  padding-top: 56px;
   min-height: 100vh;
 }
 
 .admin-content {
-  padding: 16px 20px;
+  padding: 24px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Responsive */
