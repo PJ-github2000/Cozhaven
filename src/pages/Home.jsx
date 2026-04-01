@@ -815,7 +815,7 @@ function ReviewsSection() {
 
             {/* Dots */}
             <div className="reviews-v2__dots">
-              {REVIEWS.map((_, i) => (
+              {reviews.map((_, i) => (
                 <button
                   key={i}
                   className={`reviews-v2__dot ${active === i ? 'active' : ''}`}

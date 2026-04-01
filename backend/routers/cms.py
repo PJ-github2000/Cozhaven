@@ -263,3 +263,10 @@ async def get_public_blog_post(slug: str, db: Session = Depends(get_db), locale:
         
     data = BlogPostResponse.model_validate(post).model_dump()
     return localize_blog_post(db, data, locale)
+
+@public_router.get("/blocks/{name}", response_model=ContentBlockResponse)
+async def get_public_block(name: str, db: Session = Depends(get_db)):
+    block = db.query(ContentBlock).filter(ContentBlock.name == name).first()
+    if not block:
+        raise HTTPException(status_code=404, detail="Block not found")
+    return block
