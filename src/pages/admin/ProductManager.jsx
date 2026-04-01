@@ -427,7 +427,7 @@ export default function ProductManager() {
           
           <div className="filter-system-wrap">
             <button 
-              className={`btn btn-secondary btn-icon filter-toggle ${activeFilterCount > 0 ? 'active' : ''}`}
+              className={`admin-btn admin-btn-secondary btn-icon filter-toggle ${activeFilterCount > 0 ? 'active' : ''}`}
               onClick={() => setShowFilters(!showFilters)}
             >
               <Filter size={18} />
@@ -465,14 +465,14 @@ export default function ProductManager() {
                 </div>
                 <div className="filter-popover-footer">
                   <button className="text-btn" onClick={clearFilters}>Reset All</button>
-                  <button className="btn btn-primary btn-small" onClick={() => setShowFilters(false)}>Done</button>
+                  <button className="admin-btn admin-btn-primary" onClick={() => setShowFilters(false)}>Done</button>
                 </div>
               </div>
             )}
           </div>
 
           <button 
-            className="btn btn-secondary btn-icon" 
+            className="admin-btn admin-btn-secondary btn-icon" 
             onClick={() => document.getElementById('catalog-import-input').click()}
             title="Import from CSV"
           >
@@ -499,7 +499,7 @@ export default function ProductManager() {
             />
           </button>
           <button 
-            className="btn btn-secondary btn-icon" 
+            className="admin-btn admin-btn-secondary btn-icon" 
             onClick={handleExport}
             title="Export to CSV"
           >
@@ -514,7 +514,7 @@ export default function ProductManager() {
           </button>
           {canEdit && (
             <>
-              <button className="btn btn-secondary btn-icon" onClick={handleStockAlert} title="Trigger Inventory Alert">
+              <button className="admin-btn admin-btn-secondary btn-icon" onClick={handleStockAlert} title="Trigger Inventory Alert">
                 <AlertTriangle size={18} />
               </button>
               <button className="admin-btn admin-btn-primary" onClick={openNewProductModal}>
@@ -622,8 +622,8 @@ export default function ProductManager() {
               <p className="hint">Use negative values for discounts/reductions.</p>
             </div>
             <div className="admin-modal-footer">
-              <button className="btn btn-secondary" onClick={() => setIsPriceModalOpen(false)}>Cancel</button>
-              <button className="btn btn-primary" onClick={handleBulkPriceUpdate}>Apply Changes</button>
+              <button className="admin-btn admin-btn-secondary" onClick={() => setIsPriceModalOpen(false)}>Cancel</button>
+              <button className="admin-btn admin-btn-primary" onClick={handleBulkPriceUpdate}>Apply Changes</button>
             </div>
           </div>
         </div>
@@ -644,8 +644,8 @@ export default function ProductManager() {
               </div>
             </div>
             <div className="admin-modal-footer no-print">
-              <button className="btn btn-secondary" onClick={() => setPrintingProduct(null)}>Cancel</button>
-              <button className="btn btn-primary" onClick={handlePagePrint}>
+              <button className="admin-btn admin-btn-secondary" onClick={() => setPrintingProduct(null)}>Cancel</button>
+              <button className="admin-btn admin-btn-primary" onClick={handlePagePrint}>
                 <Download size={18} /> Print Label
               </button>
             </div>
@@ -735,10 +735,10 @@ export default function ProductManager() {
           <span className="label">Showing page {page} of {Math.max(pageInfo.pages, 1)} · {pageInfo.total} total products</span>
         </div>
         <div className="admin-actions-right">
-          <button className="btn btn-secondary" onClick={() => setPage(prev => Math.max(1, prev - 1))} disabled={page <= 1}>
+          <button className="admin-btn admin-btn-secondary" onClick={() => setPage(prev => Math.max(1, prev - 1))} disabled={page <= 1}>
             Previous
           </button>
-          <button className="btn btn-secondary" onClick={() => setPage(prev => Math.min(pageInfo.pages || 1, prev + 1))} disabled={page >= (pageInfo.pages || 1)}>
+          <button className="admin-btn admin-btn-secondary" onClick={() => setPage(prev => Math.min(pageInfo.pages || 1, prev + 1))} disabled={page >= (pageInfo.pages || 1)}>
             Next
           </button>
         </div>

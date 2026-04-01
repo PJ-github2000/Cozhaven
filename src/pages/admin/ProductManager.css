@@ -78,13 +78,14 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: var(--admin-panel-bg);
+  background: var(--admin-card);
   border: 1px solid var(--admin-border);
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  font-size: 0.8125rem;
-  color: var(--admin-text-main);
+  border-radius: var(--admin-radius-sm);
+  box-shadow: var(--admin-shadow-sm);
+  font-size: 13px;
+  color: var(--admin-text);
+  font-family: var(--font-admin);
 }
 
 .job-status-pill .spinning {
@@ -100,17 +101,18 @@
 }
 
 .selection-all-banner {
-  background: var(--admin-primary-faint);
+  background: #f0f6ff;
   color: var(--admin-primary);
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--admin-radius-sm);
   margin-bottom: 1rem;
-  font-size: 0.875rem;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--admin-primary-border);
+  border: 1px solid #bfdbfe;
   animation: slideInDown 0.3s ease-out;
+  font-family: var(--font-admin);
 }
 
 .select-all-btn {
