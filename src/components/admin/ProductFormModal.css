@@ -2,14 +2,39 @@
   Product Form Modal — Compact
 */
 
+@keyframes fadeInOverlay {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(4px); }
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(20px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeInOverlay 0.25s ease-out forwards;
+}
+
 .product-form-modal {
-  background: #fff;
+  background: var(--admin-card);
   border-radius: var(--admin-radius);
   border: 1px solid var(--admin-border);
-  box-shadow: var(--admin-shadow);
-  max-width: 720px;
-  max-height: 85vh;
+  box-shadow: var(--admin-shadow-lg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 88vh;
   overflow-y: auto;
+  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .luxury-form-v2 { padding: 20px; }
