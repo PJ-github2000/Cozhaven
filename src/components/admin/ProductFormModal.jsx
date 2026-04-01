@@ -719,8 +719,8 @@ export default function ProductFormModal({
                         <div className="configurable-header-row">
                           <label className="admin-label">Product Options</label>
                           <div className="configurable-header-actions">
-                            <button type="button" className="btn btn-secondary btn-small" onClick={addOption}><Plus size={14} /> Add Option</button>
-                            <button type="button" className="btn btn-secondary btn-small" onClick={generateVariantsFromOptions}>Generate Matrix</button>
+                            <button type="button" className="admin-btn admin-btn-secondary" onClick={addOption}><Plus size={14} /> Add Option</button>
+                            <button type="button" className="admin-btn admin-btn-secondary" onClick={generateVariantsFromOptions}>Generate Matrix</button>
                           </div>
                         </div>
                         {errors.options && <span className="error-text">{errors.options}</span>}
@@ -738,7 +738,7 @@ export default function ProductFormModal({
                                     <button type="button" onClick={() => removeOptionValue(optionIndex, valueIndex)} className="remove-btn"><X size={14} /></button>
                                   </div>
                                 ))}
-                                <button type="button" className="btn-text-small" onClick={() => addOptionValue(optionIndex)}>+ Add Value</button>
+                                <button type="button" className="text-btn" onClick={() => addOptionValue(optionIndex)}>+ Add Value</button>
                               </div>
                             </div>
                           ))}
@@ -804,7 +804,7 @@ export default function ProductFormModal({
                               <option value="set">Set Exact (=)</option>
                             </select>
                             <input type="number" className="admin-input" placeholder="Qty" value={draft.quantity} onChange={e => patchAdjustmentDraft(variantKey, { quantity: e.target.value })} />
-                            <button type="button" className="btn btn-primary" onClick={() => applyInventoryAdjustment(variant)} disabled={inventorySubmittingId === variant.id}>
+                            <button type="button" className="admin-btn admin-btn-primary" onClick={() => applyInventoryAdjustment(variant)} disabled={inventorySubmittingId === variant.id}>
                               {inventorySubmittingId === variant.id ? '...' : 'Apply'}
                             </button>
                           </div>
@@ -875,7 +875,7 @@ export default function ProductFormModal({
                           <button type="button" onClick={() => removeSpec(i)}><Trash2 size={16} /></button>
                         </div>
                       ))}
-                      <button type="button" className="btn btn-secondary btn-small" onClick={addSpec}>+ Add Detail</button>
+                      <button type="button" className="admin-btn admin-btn-secondary" onClick={addSpec}>+ Add Detail</button>
                     </div>
                   </div>
 
@@ -908,8 +908,8 @@ export default function ProductFormModal({
 
           <footer className="luxury-form-footer">
             <div className="footer-actions">
-              <button type="button" onClick={onClose} className="btn-admin btn-admin-secondary">Discard</button>
-              <button type="submit" className="btn-admin btn-admin-primary" disabled={saving}>
+              <button type="button" onClick={onClose} className="admin-btn admin-btn-secondary">Discard</button>
+              <button type="submit" className="admin-btn admin-btn-primary" disabled={saving}>
                 {saving ? 'Processing...' : (initialData ? 'Commit Changes' : 'Publish Product')}
               </button>
             </div>
