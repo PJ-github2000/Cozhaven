@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CreditCard, Truck, Shield, Check, ArrowLeft, Lock } from 'lucide-react';
+import { Truck, Shield, Check, ArrowLeft } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { API_BASE, getAuthHeaders } from '../services/apiConfig.js';
 import StripePaymentWrapper from '../components/StripePaymentForm';
 import './Checkout.css';
 
 export default function Checkout() {
   const navigate = useNavigate();
   const { items, subtotal, clearCart } = useCart();
-  const { user } = useAuth();
   const { addToast } = useToast();
   const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
 
   const [shipping, setShipping] = useState({
     firstName: '',
@@ -43,6 +39,17 @@ export default function Checkout() {
 
   const displayTotal = serverCalc ? serverCalc.total : subtotal + shippingRates[shippingMethod].price;
 
+  const buildOrderSnapshot = ({ orderNumber = null, paymentIntentId = null, paymentStatus = 'pending' } = {}) => ({
+    orderNumber,
+    paymentIntentId,
+    paymentStatus,
+    items,
+    total: displayTotal,
+    shipping,
+    shippingMethod,
+    date: new Date().toISOString(),
+  });
+
   const handleShippingSubmit = (e) => {
     e.preventDefault();
     if (!shipping.firstName || !shipping.lastName || !shipping.email || !shipping.address1 || !shipping.city || !shipping.province || !shipping.postalCode) {
@@ -53,52 +60,16 @@ export default function Checkout() {
     window.scrollTo(0, 0);
   };
 
-  const processOrder = async (paymentIntentId) => {
-    // Confirm the order on the server (backup to webhook)
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await fetch(`${API_BASE}/orders/confirm`, {
-          method: 'POST',
-          headers: getAuthHeaders(),
-          body: JSON.stringify({
-            paymentIntentId,
-            shipping,
-            shippingMethod,
-            items: items.map(item => ({
-              product_id: item.id,
-              quantity: item.quantity,
-              color: item.color,
-              size: item.size,
-            })),
-          }),
-        });
-        const data = await response.json();
-        const orderNumber = data.order_id ? `CZH-${data.order_id}` : `CZH-${Date.now().toString(36).toUpperCase()}`;
-
-        clearCart();
-        navigate('/checkout/success', { state: { orderNumber, total: displayTotal } });
-        addToast('Order placed successfully!', 'success');
-        return;
-      }
-    } catch (err) {
-      console.error('Order confirmation error:', err);
-    }
-
-    // Fallback: guest checkout or if server call fails
-    const orderNumber = `CZH-${Date.now().toString(36).toUpperCase()}`;
-    localStorage.setItem('cozhaven_last_order', JSON.stringify({
-      orderNumber,
-      items,
-      total: displayTotal,
-      shipping,
-      shippingMethod,
-      date: new Date().toISOString(),
-    }));
-
+  const processOrder = async ({ paymentIntentId, clientSecret = null }) => {
+    localStorage.setItem('cozhaven_last_order', JSON.stringify(
+      buildOrderSnapshot({ paymentIntentId, paymentStatus: 'processing' })
+    ));
     clearCart();
-    navigate('/checkout/success', { state: { orderNumber, total: displayTotal } });
-    addToast('Order placed successfully!', 'success');
+    const successUrl = clientSecret
+      ? `/checkout/success?payment_intent_client_secret=${encodeURIComponent(clientSecret)}`
+      : '/checkout/success';
+    navigate(successUrl, { state: { paymentIntentId, total: displayTotal } });
+    addToast('Payment received. Finalizing your order.', 'info');
   };
 
   const steps = [
@@ -281,6 +252,7 @@ export default function Checkout() {
                 promoCode={null}
                 email={shipping.email}
                 shippingAddress={JSON.stringify(shipping)}
+                fallbackTotal={displayTotal}
                 onPaymentSuccess={processOrder}
                 onCalculation={setServerCalc}
               />
@@ -298,8 +270,8 @@ export default function Checkout() {
           <h3 className="summary-title">Order Summary</h3>
           
           <div className="summary-items">
-            {items.map(item => (
-              <div key={item.key} className="summary-item">
+            {items.map((item, index) => (
+              <div key={item.key || item.id || item.product_id || `${item.name}-${index}`} className="summary-item">
                 <img src={item.image} alt={item.name} className="summary-item__image" />
                 <div className="summary-item__details">
                   <h4 className="summary-item__name">{item.name}</h4>

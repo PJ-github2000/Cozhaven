@@ -16,45 +16,42 @@ function saveCart(items) {
 }
 
 function cartReducer(state, action) {
-  let newState;
   switch (action.type) {
     case 'ADD_ITEM': {
       const { id, color, size, material } = action.payload;
       const key = `${id}-${color || ''}-${size || ''}-${material || ''}`;
       const existing = state.find(item => item.key === key);
       if (existing) {
-        newState = state.map(item =>
+        return state.map(item =>
           item.key === key ? { ...item, quantity: item.quantity + (action.payload.quantity || 1) } : item
         );
       } else {
-        newState = [...state, { ...action.payload, key, quantity: action.payload.quantity || 1 }];
+        return [...state, { ...action.payload, key, quantity: action.payload.quantity || 1 }];
       }
-      break;
     }
     case 'REMOVE_ITEM':
-      newState = state.filter(item => item.key !== action.payload);
-      break;
+      return state.filter(item => item.key !== action.payload);
     case 'UPDATE_QUANTITY':
       if (action.payload.quantity <= 0) {
-        newState = state.filter(item => item.key !== action.payload.key);
+        return state.filter(item => item.key !== action.payload.key);
       } else {
-        newState = state.map(item =>
+        return state.map(item =>
           item.key === action.payload.key ? { ...item, quantity: action.payload.quantity } : item
         );
       }
-      break;
     case 'CLEAR_CART':
-      newState = [];
-      break;
+      return [];
     default:
       return state;
   }
-  saveCart(newState);
-  return newState;
 }
 
 export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(cartReducer, [], loadCart);
+
+  useEffect(() => {
+    saveCart(items);
+  }, [items]);
 
   const addItem = (product, color, size, quantity = 1, material) => {
     dispatch({ type: 'ADD_ITEM', payload: { ...product, color, size, quantity, material } });

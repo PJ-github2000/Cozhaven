@@ -114,7 +114,6 @@ export function AuthProvider({ children }) {
     login,
     logout,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin' || user?.role === 'manager' || user?.role === 'viewer',
     role: user?.role
   };
 

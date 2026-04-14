@@ -51,12 +51,13 @@ async function scrape() {
         allUrls.push('https://atunushome.com/product/modular-cloud-couch-white-boucle/'); // Fallback for testing
     }
 
-    console.log(`Found ${allUrls.length} products. Starting scrape with more robust price detection...`);
+    console.log(`Found ${allUrls.length} products. Starting limited scrape (10 URLs)...`);
+    const subsetUrls = allUrls.slice(0, 10);
     const products = [];
     const parallelLimit = 6;
 
-    for (let i = 0; i < allUrls.length; i += parallelLimit) {
-        const chunk = allUrls.slice(i, i + parallelLimit);
+    for (let i = 0; i < subsetUrls.length; i += parallelLimit) {
+        const chunk = subsetUrls.slice(i, i + parallelLimit);
         await Promise.all(chunk.map(async (url) => {
             try {
                 const html = await fetchUrl(url);
@@ -107,6 +108,29 @@ async function scrape() {
                     if (rangeMatch) price = rangeMatch[1].replace(/,/g, '');
                 }
 
+                // --- NEW TECHNICAL FIELDS EXTRACTION ---
+                const softnessMatch = html.match(/(?:Softness|Softness Level|Cushion):?\s*(Plush|Cloud-like|Medium|Firm|Soft)/i);
+                const softnessMap = { 'firm': 1, 'medium': 2, 'plush': 3, 'cloud': 4, 'ethereal': 5 };
+                let softness_val = softnessMatch ? (softnessMap[softnessMatch[1].toLowerCase()] || 3) : null;
+
+                const warrantyMatch = html.match(/(\d+)[\s-]*year\s*manufacturer\s*warranty/i);
+                const warranty = warrantyMatch ? parseInt(warrantyMatch[1]) : null;
+
+                const shipsMatch = html.match(/ships\s*in\s*(\d+-\d+|\d+)\s*days/i) || html.match(/delivery:?\s*(\d+-\d+|\d+)\s*days/i);
+                const ships = shipsMatch ? shipsMatch[1] : null;
+
+                const heightMatch = html.match(/Seat\s*Height:?\s*([\d\.]+(?:\"|in|inch))/i);
+                const seatHeight = heightMatch ? heightMatch[1] : null;
+
+                const videoMatch = html.match(/iframe.*?src=["']((?:https?:)?\/\/www\.youtube\.com\/embed\/.*?)["']/i);
+                const video = videoMatch ? videoMatch[1] : null;
+
+                const diagramMatch = html.match(/class="s_a_s_p_i_c_p_specifications_image"[\s\S]*?src=["'](.*?)["']/i);
+                const diagram = diagramMatch ? diagramMatch[1] : null;
+
+                const careMatch = html.match(/Maintenance:?\s*([\s\S]*?)(?=<|$)/i);
+                const care = careMatch ? decodeHtml(careMatch[1]) : null;
+
                 if (name && name !== 'Atunus Home') {
                     products.push({
                         id: `atunus-${Math.random().toString(36).substr(2, 9)}`,
@@ -117,7 +141,15 @@ async function scrape() {
                         image: image,
                         description: decodeHtml(description),
                         url: url,
-                        is_atunus: true
+                        is_atunus: true,
+                        // Enrichment fields
+                        softness_level: softness_val,
+                        warranty_years: warranty,
+                        ships_in_days: ships,
+                        seat_height: seatHeight,
+                        assembly_video_url: video,
+                        dimensional_image_url: diagram,
+                        care_instructions: care
                     });
                 }
             } catch (err) {

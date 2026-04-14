@@ -10,10 +10,8 @@ export default function Footer() {
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    if (email.includes('@')) {
-      addToast('Welcome to the Cozhaven family! ✨', 'success');
-      setEmail('');
-    }
+    addToast('Welcome to the Cozhaven family! ✨', 'success');
+    setEmail('');
   };
 
   return (
@@ -42,7 +40,7 @@ export default function Footer() {
         <div className="footer__grid">
           {/* Brand Column */}
           <div className="footer__col footer__col--brand">
-            <img src="/assets/logo-cozhaven.webp" alt="Cozhaven" className="footer__logo-img" style={{ height: '32px', width: 'auto', marginBottom: 'var(--space-4)', display: 'block' }} />
+            <img src="/assets/logo-cozhaven.png" alt="Cozhaven" className="footer__logo-img" style={{ height: '64px', width: 'auto', marginBottom: 'var(--space-4)', display: 'block' }} />
             <p className="footer__tagline">Creating Comfort, Crafting Style.</p>
             <p className="footer__desc">Premium Canadian-made furniture for modern living. Every piece tells a story of quality craftsmanship.</p>
             <div className="footer__contact-mini">
@@ -50,10 +48,10 @@ export default function Footer() {
               <span><Clock size={14} /> Store Hours: Mon-Fri 12pm-8pm | Sat-Sun 12pm-9pm</span>
             </div>
             <div className="footer__socials">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={18} /></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={18} /></a>
+              <a href="https://www.instagram.com/cozhaven/" target="_blank" rel="noopener noreferrer" aria-label="Follow Cozhaven on Instagram"><Instagram size={18} /></a>
+              <a href="https://www.facebook.com/cozhaven/" target="_blank" rel="noopener noreferrer" aria-label="Follow Cozhaven on Facebook"><Facebook size={18} /></a>
+              <a href="https://www.linkedin.com/company/cozhaven/" target="_blank" rel="noopener noreferrer" aria-label="Cozhaven on LinkedIn"><Linkedin size={18} /></a>
+              <a href="https://www.youtube.com/@cozhaven" target="_blank" rel="noopener noreferrer" aria-label="Cozhaven on YouTube"><Youtube size={18} /></a>
             </div>
           </div>
 

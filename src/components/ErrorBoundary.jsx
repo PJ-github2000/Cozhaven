@@ -5,7 +5,7 @@ import { RefreshCw, Home, AlertCircle } from 'lucide-react';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error) {
@@ -13,11 +13,11 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // In production, you would send this to Sentry or another logging service
     console.group('Cozhaven Application Error');
     console.error('Error:', error);
     console.error('ErrorInfo:', errorInfo);
     console.groupEnd();
+    this.setState({ errorInfo });
   }
 
   render() {
@@ -54,10 +54,11 @@ class ErrorBoundary extends React.Component {
               </Link>
             </div>
             
-            {process.env.NODE_ENV === 'development' && (
-              <details style={styles.details}>
+            {import.meta.env.DEV && (
+              <details style={styles.details} open>
                 <summary style={styles.summary}>Error Details (Dev Only)</summary>
                 <pre style={styles.pre}>{this.state.error?.toString()}</pre>
+                <pre style={{...styles.pre, marginTop: 8}}>{this.state.errorInfo?.componentStack}</pre>
               </details>
             )}
           </div>

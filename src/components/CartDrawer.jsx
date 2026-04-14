@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Minus, Plus, ShoppingBag, Trash2, Tag, Truck } from 'lucide-react';
+import { X, Minus, Plus, ShoppingBag, Trash2, Tag, Truck, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
 import { Link } from 'react-router-dom';
@@ -114,6 +114,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                       <input
                         type="text"
                         placeholder="Promo code"
+                        aria-label="Enter promo code"
                         value={promoCode}
                         onChange={e => setPromoCode(e.target.value.toUpperCase())}
                         onKeyPress={e => e.key === 'Enter' && handleApplyPromo()}
@@ -123,8 +124,11 @@ export default function CartDrawer({ isOpen, onClose }) {
                   </div>
                   
                   {appliedDiscount && (
-                    <div className="cart-discount-applied">
-                      <span>{appliedDiscount.label} applied!</span>
+                    <div className="cart-discount-applied" role="status">
+                      <span className="cart-discount-applied__label">
+                        <Check size={14} aria-hidden="true" />
+                        {appliedDiscount.label} applied!
+                      </span>
                       <button onClick={() => { setAppliedDiscount(null); setPromoCode(''); }}>Remove</button>
                     </div>
                   )}
@@ -164,6 +168,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                   <Link 
                     to="/checkout" 
                     className="btn btn-primary btn-large" 
+                    data-testid="cart-checkout-link"
                     style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     onClick={onClose}
                   >

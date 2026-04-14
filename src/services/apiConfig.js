@@ -1,9 +1,9 @@
 // Centralized API configuration
 // Uses Vite environment variables for flexibility across environments
 
-// Fallback to absolute URL only if on Vite dev port, otherwise use relative path for production/FastAPI serving
-const isViteDev = window.location.port === '5173';
-export const API_BASE = import.meta.env.VITE_API_URL || (isViteDev ? 'http://localhost:8000/api' : '/api');
+// In development, Vite proxies /api to backend
+// In production, set VITE_API_URL to your backend URL
+export const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '';
 
@@ -16,6 +16,15 @@ export const getAuthHeaders = () => {
 export const handleResponse = async (response) => {
   if (!response.ok) {
     const error = await response.json().catch(() => ({ detail: 'Request failed' }));
+    let errorMessage = error.detail || 'API request failed';
+    if (Array.isArray(error.detail)) {
+      errorMessage = error.detail
+        .map((item) => {
+          const field = Array.isArray(item.loc) ? item.loc.filter((part) => part !== 'body').join('.') : 'field';
+          return `${field}: ${item.msg}`;
+        })
+        .join('; ');
+    }
     if (response.status === 401) {
       // Clear user data on 401
       localStorage.removeItem('user');
@@ -23,7 +32,7 @@ export const handleResponse = async (response) => {
         window.location.href = '/';
       }
     }
-    throw new Error(error.detail || 'API request failed');
+    throw new Error(errorMessage);
   }
   return response.json();
 };

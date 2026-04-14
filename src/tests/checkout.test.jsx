@@ -4,6 +4,12 @@ import { describe, it, expect, vi } from 'vitest';
 import Checkout from '../pages/Checkout';
 import OrderSuccess from '../pages/OrderSuccess';
 
+vi.mock('@stripe/stripe-js', () => ({
+  loadStripe: vi.fn().mockResolvedValue({
+    retrievePaymentIntent: vi.fn(),
+  }),
+}));
+
 // Mock contexts
 vi.mock('../context/CartContext', () => ({
   useCart: () => ({
@@ -77,7 +83,7 @@ describe('Checkout Flow Tests', () => {
 });
 
 describe('OrderSuccess Page Tests', () => {
-  it('renders correctly with order data', () => {
+  it('renders correctly with order data', async () => {
     const mockState = {
       orderNumber: 'CZH-TEST12345',
       total: 1130
@@ -89,7 +95,9 @@ describe('OrderSuccess Page Tests', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('Order Confirmed!')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Order Confirmed!')).toBeInTheDocument();
+    });
     expect(screen.getByText('CZH-TEST12345')).toBeInTheDocument();
     expect(screen.getByText('$1,130')).toBeInTheDocument();
   });

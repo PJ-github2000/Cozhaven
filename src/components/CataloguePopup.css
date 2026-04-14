@@ -106,7 +106,7 @@
 }
 
 .catalogue-brand {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-display);
     color: var(--warm-white);
     font-size: 1.4rem;
     letter-spacing: 0.15em;

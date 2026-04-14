@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ═══════════════════════════════════════════════════════════
    COZHAVEN — DESIGN SYSTEM
    Modern Luxury Sanctuary
@@ -6,74 +10,59 @@
 /* ─── Design Tokens ─── */
 :root {
   /* Typography */
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-accent: 'Manrope', sans-serif;
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-accent: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* Colors — Primary */
-  --warm-white: #FCFBFA;
-  /* Even softer, more editorial off-white */
+  --warm-white: #FFFFFF;
   --deep-charcoal: #121212;
-  /* Pure, sharp charcoal */
-  --warm-taupe: #B3A89D;
+  --warm-taupe: #E5E5E5; /* Light border gray */
+  
   /* Colors — Accent */
-  --rich-bronze: #8A6540;
-  --deep-sage: #5F6D59;
-  /* More sophisticated sage */
-  --soft-cream: #F5F3F0;
-  /* Refined background shade */
+  --rich-bronze: #121212;
+  --deep-sage: #121212;
+  --soft-cream: #F5F5F5;
 
   /* Colors — Functional */
-  --success: #556B56;
-  --error: #A85A4F;
-  --warning: #B38959;
+  --success: #2E7D32;
+  --error: #D32F2F;
+  --warning: #F57C00;
 
   /* Colors — Extended */
-  --charcoal-light: #2C2C2C;
-  --charcoal-muted: #666666;
-  --taupe-light: #E0D9D3;
-  --bronze-light: #B89773;
-  --bronze-dark: #664A2F;
-  --sage-light: #94A38D;
-  --cream-dark: #EAE6DF;
+  --charcoal-light: #4A4A4A;
+  --charcoal-muted: #757575;
+  --taupe-light: #EEEEEE;
+  --bronze-light: #D5D5D5;
+  --bronze-dark: #333333;
+  --sage-light: #9E9E9E;
+  --cream-dark: #E0E0E0;
 
-  /* Spacing (Reduced for tight, minimal look) */
+  /* Spacing (Standardized geometry) */
   --space-1: 0.25rem;
-  /* 4px */
   --space-2: 0.5rem;
-  /* 8px */
   --space-3: 1rem;
-  /* 16px */
   --space-4: 1.5rem;
-  /* 24px */
   --space-5: 2rem;
-  /* 32px */
   --space-6: 2.5rem;
-  /* 40px */
   --space-8: 3rem;
-  /* 48px */
   --space-10: 4rem;
-  /* 64px */
   --space-12: 5rem;
-  /* 80px */
   --space-15: 6rem;
-  /* 96px */
 
-  /* Shadows — Subtle depth without being dramatic */
+  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-glow: none;
 
-  /* Borders — Subtle rounded edges for better UX */
+  /* Borders */
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 8px;
   --radius-xl: 12px;
   --radius-2xl: 16px;
   --radius-full: 9999px;
-  /* Only for specific circular elements like icons */
 
   /* Transitions */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -86,36 +75,21 @@
 
   /* Layout */
   --max-width: 1440px;
-  --header-height: 72px;
-  --container-padding: clamp(1.5rem, 5vw, 4rem);
-
-  /* Z-Index */
-  --z-base: 1;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-overlay: 300;
-  --z-modal: 400;
-  --z-toast: 500;
-  --z-cursor: 1000;
-  /* Ensure cursor is above everything */
-
-  /* Cursor Tokens */
-  --cursor-size: 20px;
-  --cursor-blend: difference;
-  --cursor-color: var(--warm-white);
-
-  /* Scroll progress bar */
-  --scroll-progress: 0;
+  --header-height: 124px;
+  --header-height-mobile: 104px;
+  --container-padding: 5%;
 }
 
-
-/* ─── Reset & Base ─── */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.main-content--with-header {
+  padding-top: var(--header-height);
 }
 
 html {
@@ -141,17 +115,6 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
-}
-
-/* Grain Texture Overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.4;
 }
 
 /* Custom Scrollbar */
@@ -295,18 +258,18 @@ ol {
 
 .section-subtitle {
   font-family: var(--font-accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--rich-bronze);
+  color: var(--charcoal-muted);
   display: block;
   margin-bottom: var(--space-2);
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 600;
   margin-bottom: var(--space-3);
 }
 
@@ -321,61 +284,42 @@ ol {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-1);
-  font-family: var(--font-accent);
-  font-size: 0.75rem;
-  /* Standardized sizing */
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0 var(--space-5);
-  height: clamp(52px, 5vw, 60px);
-  /* Responsive height */
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0 var(--space-6);
+  height: clamp(48px, 5vw, 54px);
   border-radius: var(--radius-sm);
-  /* Standard shape */
-  transition: all var(--duration-base) var(--ease-smooth);
+  transition: all var(--duration-fast) ease-out;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
-  opacity: 0;
-  transition: opacity var(--duration-base) var(--ease-smooth);
-}
-
-.btn:hover::before {
-  opacity: 1;
 }
 
 .btn-primary {
   background: var(--deep-charcoal);
   color: var(--warm-white);
   border: 1px solid var(--deep-charcoal);
-  box-shadow: none;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
 }
 
 .btn-primary:hover {
-  background: transparent;
-  color: var(--deep-charcoal);
-  transform: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--deep-charcoal);
-  border: 1px solid var(--deep-charcoal);
+  border: 1px solid var(--taupe-light);
 }
 
 .btn-secondary:hover {
-  background: var(--deep-charcoal);
-  color: var(--warm-white);
   border-color: var(--deep-charcoal);
-  transform: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .btn-ghost {
@@ -383,27 +327,14 @@ ol {
   color: var(--deep-charcoal);
   padding: 0;
   height: auto;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   position: relative;
-}
-
-.btn-ghost::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0%;
-  height: 1px;
-  background: var(--rich-bronze);
-  transition: width var(--duration-base) var(--ease-smooth);
-}
-
-.btn-ghost:hover::after {
-  width: 100%;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .btn-ghost:hover {
-  color: var(--rich-bronze);
+  color: var(--charcoal-muted);
 }
 
 /* ─── Magnetic Effect Utility ─── */
@@ -721,8 +652,9 @@ textarea.input-field {
 
 /* ─── Responsive ─── */
 @media (max-width: 767px) {
-  :root {
-    --header-height: 64px;
+
+:root {
+    --header-height: var(--header-height-mobile);
   }
 
   .hide-mobile {

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ShoppingBag, Heart, Menu, X, ChevronDown, LogOut, LayoutDashboard, Briefcase, Download } from 'lucide-react';
+import { Search, User, ShoppingBag, Heart, Menu, X, ChevronDown, LogOut, Briefcase, Download } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
 import CartDrawer from './CartDrawer';
 import SearchModal from './SearchModal';
-import AuthModal from './AuthModal';
 import './Header.css';
 
 export default function Header() {
@@ -15,11 +14,11 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { itemCount } = useCart();
   const { items: wishItems } = useWishlist();
-  const { user, logout, isAdmin } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleDownloadCatalogue = () => {
     const link = document.createElement('a');
@@ -94,7 +93,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link to="/" className="header__logo" aria-label="Cozhaven Home">
-            <img src="/assets/logo-cozhaven.webp" alt="Cozhaven Logo" className="header__logo-img" style={{ height: '32px', width: 'auto', display: 'block' }} />
+            <img src="/assets/logo-cozhaven.png" alt="Cozhaven Logo" className="header__logo-img" style={{ height: '64px', width: 'auto', display: 'block' }} />
           </Link>
 
           {/* Desktop Nav */}
@@ -134,7 +133,7 @@ export default function Header() {
               title="Download 2026 Catalog"
             >
               <Download size={15} />
-              <span className="btn-label">2026 CATALOGUE</span>
+              <span className="btn-label">Catalogue</span>
             </button>
             <Link
               to="/trade-program"
@@ -143,7 +142,7 @@ export default function Header() {
               title="Join our Trade Program"
             >
               <Briefcase size={15} />
-              <span className="btn-label">TRADE PROGRAM</span>
+              <span className="btn-label">Trade</span>
             </Link>
             <button className="header__action-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
               <Search size={20} />
@@ -162,16 +161,7 @@ export default function Header() {
                   <User size={20} />
                   <span className="header__user-name hide-mobile">{user.first_name}</span>
                 </button>
-                {isAdmin && (
-                  <Link
-                    to="/admin"
-                    className="header__action-btn"
-                    title="Admin Dashboard"
-                    style={{ background: 'var(--rich-bronze)', color: 'white', borderRadius: '4px', padding: '4px 8px', fontSize: '10px', fontWeight: 'bold' }}
-                  >
-                    ADMIN
-                  </Link>
-                )}
+
                 <button
                   className="header__action-btn"
                   onClick={logout}
@@ -184,14 +174,14 @@ export default function Header() {
             ) : (
               <button
                 className="header__action-btn"
-                onClick={() => setAuthModalOpen(true)}
+                onClick={() => navigate('/login')}
                 aria-label="Account"
                 title="Sign In"
               >
                 <User size={20} />
               </button>
             )}
-            <button className="header__action-btn" onClick={() => setCartOpen(true)} aria-label="Shopping cart">
+            <button className="header__action-btn" onClick={() => setCartOpen(true)} aria-label="Shopping cart" data-testid="header-cart-button">
               <ShoppingBag size={20} />
               {itemCount > 0 && (
                 <motion.span
@@ -268,7 +258,6 @@ export default function Header() {
 
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </>
   );
 }

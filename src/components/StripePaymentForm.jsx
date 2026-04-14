@@ -13,8 +13,9 @@ import { STRIPE_PUBLISHABLE_KEY, API_BASE } from "../services/apiConfig.js";
 const stripePromise = STRIPE_PUBLISHABLE_KEY
   ? loadStripe(STRIPE_PUBLISHABLE_KEY)
   : null;
+const isMockCheckoutEnabled = import.meta.env.VITE_E2E_MOCK_CHECKOUT === 'true';
 
-const CheckoutForm = ({ total, onPaymentSuccess, loading, setLoading }) => {
+const CheckoutForm = ({ total, clientSecret, onPaymentSuccess, loading, setLoading }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState(null);
@@ -42,9 +43,12 @@ const CheckoutForm = ({ total, onPaymentSuccess, loading, setLoading }) => {
       if (error) {
         setErrorMessage(error.message);
         setLoading(false);
-      } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      } else if (paymentIntent && ["succeeded", "processing"].includes(paymentIntent.status)) {
         // We stay in loading state while navigating
-        onPaymentSuccess(paymentIntent.id);
+        onPaymentSuccess({
+          paymentIntentId: paymentIntent.id,
+          clientSecret: paymentIntent.client_secret || clientSecret || null,
+        });
       } else {
         setErrorMessage("An unexpected error occurred.");
         setLoading(false);
@@ -115,14 +119,32 @@ const CheckoutForm = ({ total, onPaymentSuccess, loading, setLoading }) => {
   );
 };
 
-export default function StripePaymentWrapper({ cartItems, shippingMethod, province, promoCode, email, shippingAddress, onPaymentSuccess, onCalculation }) {
+export default function StripePaymentWrapper({ cartItems, shippingMethod, province, promoCode, email, shippingAddress, fallbackTotal = 0, onPaymentSuccess, onCalculation }) {
   const [clientSecret, setClientSecret] = useState("");
-  const [paymentIntentId, setPaymentIntentId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [serverTotal, setServerTotal] = useState(0);
 
+  const computedFallbackTotal = Number(
+    cartItems.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 1), 0)
+  );
+  const displayTotal = serverTotal || fallbackTotal || computedFallbackTotal;
+
   useEffect(() => {
+    if (!isMockCheckoutEnabled || !onCalculation) return;
+    const subtotal = cartItems.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 1), 0);
+    onCalculation({
+      subtotal,
+      discount: 0,
+      shipping: Math.max(0, Number(fallbackTotal || 0) - subtotal),
+      tax_label: 'Estimated',
+      tax_amount: 0,
+      total: Number(fallbackTotal || subtotal),
+    });
+  }, [cartItems, fallbackTotal, onCalculation]);
+
+  useEffect(() => {
+    if (isMockCheckoutEnabled) return;
     if (!cartItems || cartItems.length === 0) return;
 
     const fetchIntent = async () => {
@@ -135,10 +157,11 @@ export default function StripePaymentWrapper({ cartItems, shippingMethod, provin
         const response = await fetch(`${API_BASE}/create-payment-intent`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             items: cartItems.map(item => ({
-              product_id: item.id,
-              quantity: item.quantity,
+              product_id: item.id || item.product_id,
+              quantity: item.quantity || 1,
               color: item.color || null,
               size: item.size || null,
             })),
@@ -157,7 +180,6 @@ export default function StripePaymentWrapper({ cartItems, shippingMethod, provin
 
         const data = await response.json();
         setClientSecret(data.clientSecret);
-        setPaymentIntentId(data.paymentIntentId);
         setServerTotal(data.calculation.total);
 
         // Pass calculation back to parent for display
@@ -170,7 +192,29 @@ export default function StripePaymentWrapper({ cartItems, shippingMethod, provin
       }
     };
     fetchIntent();
-  }, [cartItems, shippingMethod, province, promoCode, email]); // Added email to deps
+  }, [cartItems, shippingMethod, province, promoCode, email, shippingAddress]);
+
+  if (isMockCheckoutEnabled) {
+    return (
+      <div className="checkout__form">
+        <div className="form-section">
+          <h2 className="form-section__title">Payment Details</h2>
+          <p style={{ color: 'var(--charcoal-muted)', marginBottom: '1rem' }}>
+            E2E mock checkout is enabled for browser automation.
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary btn-large"
+            data-testid="mock-place-order"
+            style={{ width: '100%' }}
+            onClick={() => onPaymentSuccess({ paymentIntentId: 'pi_mock_e2e_success', clientSecret: null })}
+          >
+            Place Order — ${Number(displayTotal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!STRIPE_PUBLISHABLE_KEY) {
     return (
@@ -213,6 +257,7 @@ export default function StripePaymentWrapper({ cartItems, shippingMethod, provin
         }} stripe={stripePromise}>
           <CheckoutForm
             total={serverTotal}
+            clientSecret={clientSecret}
             onPaymentSuccess={(piId) => onPaymentSuccess(piId)}
             loading={loading}
             setLoading={setLoading}

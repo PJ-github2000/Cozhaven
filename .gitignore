@@ -42,9 +42,38 @@ build/
 .turbo
 
 # Environment variables (secrets)
-.env*
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+.env.*.local
 !.env.example
-backend/.env*
+
+# Secrets and Credentials
+*.key
+*.pem
+*.pfx
+*.cert
+*.crt
+*.gpg
+*.asc
+*_key.json
+*credentials*.json
+gen-lang-client-*.json
+service-account-*.json
+secrets.json
+.vault
+token.json
+credentials.json
+client_secret*.json
+
+# Local / Temporary Data
+local_collection.json
+imported_collection.json
+local_products_collection.txt
+*.db
+*.sqlite
 
 # Editor directories and files
 .vscode/*

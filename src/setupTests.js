@@ -8,4 +8,4 @@ class IntersectionObserverMock {
   disconnect() {}
 }
 
-global.IntersectionObserver = IntersectionObserverMock;
+globalThis.IntersectionObserver = IntersectionObserverMock;
